@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.10.4 on win32)" generated="20220527 20:30:31.249" rpa="false" schemaversion="3">
+<suite id="s1" name="Testsuite" source="C:\Putty\Robot\TITest\testsuite.robot">
+<test id="s1-t1" name="TC1 Behaviour Driven Scenario" line="12">
+<kw name="Given Connected To Website" library="keywords">
+<kw name="Connect" library="Ti8MLibrary">
+<arg>C:/Program Files (x86)/geckodriver.exe</arg>
+<arg>https://www.ti8m.com/de/career</arg>
+<status status="PASS" starttime="20220527 20:30:31.450" endtime="20220527 20:30:39.883"/>
+</kw>
+<status status="PASS" starttime="20220527 20:30:31.449" endtime="20220527 20:30:39.883"/>
+</kw>
+<kw name="When The User Scrolls To Search" library="keywords">
+<kw name="Load And Switch To Iframe" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:30:39.885" endtime="20220527 20:30:43.973"/>
+</kw>
+<status status="PASS" starttime="20220527 20:30:39.885" endtime="20220527 20:30:43.973"/>
+</kw>
+<kw name="And Inputs The Word Machine" library="keywords" sourcename="Inputs The Word ${keyword}">
+<kw name="Search In Field" library="Ti8MLibrary">
+<arg>${keyword}</arg>
+<status status="PASS" starttime="20220527 20:30:43.976" endtime="20220527 20:30:49.053"/>
+</kw>
+<status status="PASS" starttime="20220527 20:30:43.975" endtime="20220527 20:30:49.055"/>
+</kw>
+<kw name="And Selects Seniority Senior" library="keywords" sourcename="Selects Seniority ${seniority}">
+<kw name="Search In Seniority" library="Ti8MLibrary">
+<arg>${seniority}</arg>
+<status status="PASS" starttime="20220527 20:30:49.059" endtime="20220527 20:30:54.114"/>
+</kw>
+<status status="PASS" starttime="20220527 20:30:49.057" endtime="20220527 20:30:54.114"/>
+</kw>
+<kw name="Then The Job Result Should Be Cloud Data Architect mit Flair für AI" library="keywords" sourcename="The Job Result Should Be ${expected_job}">
+<kw name="List Job Results" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:30:54.121" endtime="20220527 20:30:54.139"/>
+</kw>
+<kw name="Get Job Result Text" library="Ti8MLibrary">
+<var>${found_job}</var>
+<arg>0</arg>
+<msg timestamp="20220527 20:30:54.171" level="INFO">${found_job} = Cloud Data Architect mit Flair für AI</msg>
+<status status="PASS" starttime="20220527 20:30:54.139" endtime="20220527 20:30:54.171"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${found_job}</arg>
+<arg>${expected_job}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220527 20:30:54.171" endtime="20220527 20:30:54.172"/>
+</kw>
+<kw name="Disconnect Webdriver" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:30:54.172" endtime="20220527 20:30:55.032"/>
+</kw>
+<status status="PASS" starttime="20220527 20:30:54.120" endtime="20220527 20:30:55.032"/>
+</kw>
+<tag>positive</tag>
+<status status="PASS" starttime="20220527 20:30:31.448" endtime="20220527 20:30:55.032"/>
+</test>
+<test id="s1-t2" name="TC2 Behaviour Driven Performance Test" line="19">
+<kw name="Given Connected To Website" library="keywords">
+<kw name="Connect" library="Ti8MLibrary">
+<arg>C:/Program Files (x86)/geckodriver.exe</arg>
+<arg>https://www.ti8m.com/de/career</arg>
+<status status="PASS" starttime="20220527 20:30:55.035" endtime="20220527 20:31:03.976"/>
+</kw>
+<status status="PASS" starttime="20220527 20:30:55.034" endtime="20220527 20:31:03.976"/>
+</kw>
+<kw name="When The User Scrolls To Search" library="keywords">
+<kw name="Load And Switch To Iframe" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:31:03.977" endtime="20220527 20:31:08.046"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:03.977" endtime="20220527 20:31:08.046"/>
+</kw>
+<kw name="And Inputs The Word Machine" library="keywords" sourcename="Inputs The Word ${keyword}">
+<kw name="Search In Field" library="Ti8MLibrary">
+<arg>${keyword}</arg>
+<status status="PASS" starttime="20220527 20:31:08.048" endtime="20220527 20:31:13.138"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:08.047" endtime="20220527 20:31:13.138"/>
+</kw>
+<kw name="And Selects Seniority Senior" library="keywords" sourcename="Selects Seniority ${seniority}">
+<kw name="Search In Seniority" library="Ti8MLibrary">
+<arg>${seniority}</arg>
+<status status="PASS" starttime="20220527 20:31:13.139" endtime="20220527 20:31:18.171"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:13.139" endtime="20220527 20:31:18.172"/>
+</kw>
+<kw name="Then The Job Result Should Be Cloud Data Architect mit Flair für AI" library="keywords" sourcename="The Job Result Should Be ${expected_job}">
+<kw name="List Job Results" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:31:18.174" endtime="20220527 20:31:18.190"/>
+</kw>
+<kw name="Get Job Result Text" library="Ti8MLibrary">
+<var>${found_job}</var>
+<arg>0</arg>
+<msg timestamp="20220527 20:31:18.223" level="INFO">${found_job} = Cloud Data Architect mit Flair für AI</msg>
+<status status="PASS" starttime="20220527 20:31:18.191" endtime="20220527 20:31:18.224"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${found_job}</arg>
+<arg>${expected_job}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220527 20:31:18.224" endtime="20220527 20:31:18.224"/>
+</kw>
+<kw name="Disconnect Webdriver" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:31:18.224" endtime="20220527 20:31:19.042"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:18.173" endtime="20220527 20:31:19.043"/>
+</kw>
+<tag>positive</tag>
+<status status="PASS" starttime="20220527 20:30:55.034" endtime="20220527 20:31:19.043"/>
+</test>
+<test id="s1-t3" name="TC3 Verify Location Consistency" line="26">
+<kw name="Connect to Website" library="keywords">
+<kw name="Connect" library="Ti8MLibrary">
+<arg>C:/Program Files (x86)/geckodriver.exe</arg>
+<arg>https://www.ti8m.com/de/career</arg>
+<status status="PASS" starttime="20220527 20:31:19.045" endtime="20220527 20:31:26.974"/>
+</kw>
+<kw name="Allow Cookies" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:31:26.974" endtime="20220527 20:31:27.263"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:19.045" endtime="20220527 20:31:27.264"/>
+</kw>
+<kw name="Search Keyword in Joblist" library="keywords">
+<arg>Düsseldorf</arg>
+<kw name="Load And Switch To Iframe" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:31:27.266" endtime="20220527 20:31:31.330"/>
+</kw>
+<kw name="Search In Field" library="Ti8MLibrary">
+<arg>${Keyword}</arg>
+<status status="PASS" starttime="20220527 20:31:31.330" endtime="20220527 20:31:36.445"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:27.265" endtime="20220527 20:31:36.445"/>
+</kw>
+<kw name="Verify Result Location" library="keywords">
+<arg>Düsseldorf</arg>
+<kw name="List Job Results" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:31:36.446" endtime="20220527 20:31:36.459"/>
+</kw>
+<kw name="Get Job Result Location" library="Ti8MLibrary">
+<var>${found_location}</var>
+<msg timestamp="20220527 20:31:36.477" level="INFO">${found_location} = Frankfurt</msg>
+<status status="PASS" starttime="20220527 20:31:36.459" endtime="20220527 20:31:36.477"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${found_location}</arg>
+<arg>${expected_location}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<msg timestamp="20220527 20:31:36.479" level="FAIL">Frankfurt != Düsseldorf</msg>
+<status status="FAIL" starttime="20220527 20:31:36.478" endtime="20220527 20:31:36.479"/>
+</kw>
+<status status="FAIL" starttime="20220527 20:31:36.446" endtime="20220527 20:31:36.481"/>
+</kw>
+<kw name="Disconnect" library="keywords">
+<status status="NOT RUN" starttime="20220527 20:31:36.482" endtime="20220527 20:31:36.482"/>
+</kw>
+<tag>positive</tag>
+<status status="FAIL" starttime="20220527 20:31:19.044" endtime="20220527 20:31:36.483">Frankfurt != Düsseldorf</status>
+</test>
+<test id="s1-t4" name="TC4 Search in Field and Click Link" line="32">
+<kw name="Connect to Website" library="keywords">
+<kw name="Connect" library="Ti8MLibrary">
+<arg>C:/Program Files (x86)/geckodriver.exe</arg>
+<arg>https://www.ti8m.com/de/career</arg>
+<status status="PASS" starttime="20220527 20:31:36.494" endtime="20220527 20:31:44.977"/>
+</kw>
+<kw name="Allow Cookies" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:31:44.977" endtime="20220527 20:31:45.254"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:36.489" endtime="20220527 20:31:45.254"/>
+</kw>
+<kw name="Search Keyword in Joblist" library="keywords">
+<arg>Machine</arg>
+<kw name="Load And Switch To Iframe" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:31:45.255" endtime="20220527 20:31:49.321"/>
+</kw>
+<kw name="Search In Field" library="Ti8MLibrary">
+<arg>${Keyword}</arg>
+<status status="PASS" starttime="20220527 20:31:49.321" endtime="20220527 20:31:54.432"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:45.255" endtime="20220527 20:31:54.432"/>
+</kw>
+<kw name="Verify Result" library="keywords">
+<arg>@{EXPECTED_JOBS}</arg>
+<kw name="List Job Results" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:31:54.434" endtime="20220527 20:31:54.451"/>
+</kw>
+<for flavor="IN ENUMERATE">
+<var>${index}</var>
+<var>${expected_job}</var>
+<value>@{EXPECTED_JOBS}</value>
+<iter>
+<var name="${index}">0</var>
+<var name="${expected_job}">Software Engineer mit Flair für Machine Learning</var>
+<kw name="Get Job Result Text" library="Ti8MLibrary">
+<var>${found_job}</var>
+<arg>${index}</arg>
+<msg timestamp="20220527 20:31:54.475" level="INFO">${found_job} = Software Engineer mit Flair für Machine Learning</msg>
+<status status="PASS" starttime="20220527 20:31:54.452" endtime="20220527 20:31:54.475"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${found_job}</arg>
+<arg>${expected_job}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220527 20:31:54.475" endtime="20220527 20:31:54.476"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:54.452" endtime="20220527 20:31:54.476"/>
+</iter>
+<iter>
+<var name="${index}">1</var>
+<var name="${expected_job}">Data Architect mit einem Flair für AI</var>
+<kw name="Get Job Result Text" library="Ti8MLibrary">
+<var>${found_job}</var>
+<arg>${index}</arg>
+<msg timestamp="20220527 20:31:54.488" level="INFO">${found_job} = Data Architect mit einem Flair für AI</msg>
+<status status="PASS" starttime="20220527 20:31:54.476" endtime="20220527 20:31:54.488"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${found_job}</arg>
+<arg>${expected_job}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220527 20:31:54.489" endtime="20220527 20:31:54.489"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:54.476" endtime="20220527 20:31:54.489"/>
+</iter>
+<iter>
+<var name="${index}">2</var>
+<var name="${expected_job}">Cloud Data Architect mit Flair für AI</var>
+<kw name="Get Job Result Text" library="Ti8MLibrary">
+<var>${found_job}</var>
+<arg>${index}</arg>
+<msg timestamp="20220527 20:31:54.503" level="INFO">${found_job} = Cloud Data Architect mit Flair für AI</msg>
+<status status="PASS" starttime="20220527 20:31:54.490" endtime="20220527 20:31:54.503"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${found_job}</arg>
+<arg>${expected_job}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220527 20:31:54.503" endtime="20220527 20:31:54.504"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:54.490" endtime="20220527 20:31:54.504"/>
+</iter>
+<status status="PASS" starttime="20220527 20:31:54.451" endtime="20220527 20:31:54.504"/>
+</for>
+<status status="PASS" starttime="20220527 20:31:54.433" endtime="20220527 20:31:54.504"/>
+</kw>
+<kw name="Click Links" library="keywords">
+<for flavor="IN">
+<var>${Link}</var>
+<value>@{EXPECTED_JOBS}</value>
+<iter>
+<var name="${Link}">Software Engineer mit Flair für Machine Learning</var>
+<kw name="Click Link Of Job Result" library="Ti8MLibrary">
+<arg>${Link}</arg>
+<status status="PASS" starttime="20220527 20:31:54.506" endtime="20220527 20:31:58.618"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:54.506" endtime="20220527 20:31:58.618"/>
+</iter>
+<iter>
+<var name="${Link}">Data Architect mit einem Flair für AI</var>
+<kw name="Click Link Of Job Result" library="Ti8MLibrary">
+<arg>${Link}</arg>
+<status status="PASS" starttime="20220527 20:31:58.618" endtime="20220527 20:32:02.745"/>
+</kw>
+<status status="PASS" starttime="20220527 20:31:58.618" endtime="20220527 20:32:02.745"/>
+</iter>
+<iter>
+<var name="${Link}">Cloud Data Architect mit Flair für AI</var>
+<kw name="Click Link Of Job Result" library="Ti8MLibrary">
+<arg>${Link}</arg>
+<status status="PASS" starttime="20220527 20:32:02.746" endtime="20220527 20:32:06.860"/>
+</kw>
+<status status="PASS" starttime="20220527 20:32:02.745" endtime="20220527 20:32:06.860"/>
+</iter>
+<status status="PASS" starttime="20220527 20:31:54.505" endtime="20220527 20:32:06.860"/>
+</for>
+<status status="PASS" starttime="20220527 20:31:54.505" endtime="20220527 20:32:06.861"/>
+</kw>
+<kw name="Disconnect" library="keywords">
+<kw name="Disconnect Webdriver" library="Ti8MLibrary">
+<status status="PASS" starttime="20220527 20:32:06.862" endtime="20220527 20:32:08.097"/>
+</kw>
+<status status="PASS" starttime="20220527 20:32:06.862" endtime="20220527 20:32:08.097"/>
+</kw>
+<tag>positive</tag>
+<status status="PASS" starttime="20220527 20:31:36.488" endtime="20220527 20:32:08.098"/>
+</test>
+<doc>A test suite for valid login.
+
+Keywords are imported from the resource file</doc>
+<status status="FAIL" starttime="20220527 20:30:31.251" endtime="20220527 20:32:08.099"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="3" fail="1" skip="0">positive</stat>
+</tag>
+<suite>
+<stat pass="3" fail="1" skip="0" id="s1" name="Testsuite">Testsuite</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
