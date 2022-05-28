@@ -3775,3 +3775,152 @@ Read port: 60992
 
 ###!!! [Parent][PCompositorManagerParent] Error: RunMessage(msgname=PAPZ::Msg___delete__) Channel error: cannot send/recv
 
+1653717902589	geckodriver	INFO	Listening on 127.0.0.1:57826
+1653717905678	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "57827" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\FUSZEN~1\\AppData\\Local\\Temp\\rust_mozprofile0gyMm8"
+1653717906524	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\FUSZEN~1\\AppData\\Local\\Temp\\rust_mozprofile0gyMm8\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:57827/devtools/browser/1b173eb1-c6f2-4823-a6e5-6425c8846533
+1653717908620	Marionette	INFO	Listening on port 57849
+Read port: 57849
+1653717908664	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1653717925541	Marionette	INFO	Stopped listening on port 57849
+[Parent 15476, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1653717926839	geckodriver	INFO	Listening on 127.0.0.1:57913
+1653717929910	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "57914" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\FUSZEN~1\\AppData\\Local\\Temp\\rust_mozprofile04mSIP"
+1653717930810	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\FUSZEN~1\\AppData\\Local\\Temp\\rust_mozprofile04mSIP\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:57914/devtools/browser/f3e4838b-23ce-4ef6-afd1-9110d0e07e9f
+1653717933388	Marionette	INFO	Listening on port 57937
+Read port: 57937
+1653717933447	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1653717950043	Marionette	INFO	Stopped listening on port 57937
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Reply_DiscardBrowsingContext) Closed channel: cannot send/recv
+
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Reply_DiscardBrowsingContext) Closed channel: cannot send/recv
+
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Reply_DiscardBrowsingContext) Closed channel: cannot send/recv
+
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Msg_DestroyBrowsingContextGroup) Closed channel: cannot send/recv
+
+
+###!!! [Parent][PCompositorManagerParent] Error: RunMessage(msgname=PAPZ::Msg___delete__) Channel error: cannot send/recv
+
+1653717951091	geckodriver	INFO	Listening on 127.0.0.1:58002
+1653717954122	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "58003" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\FUSZEN~1\\AppData\\Local\\Temp\\rust_mozprofile0mhtTN"
+1653717954669	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\FUSZEN~1\\AppData\\Local\\Temp\\rust_mozprofile0mhtTN\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:58003/devtools/browser/311d37a5-3901-43cd-b152-51fbe7331d6d
+1653717956902	Marionette	INFO	Listening on port 58030
+Read port: 58030
+1653717957049	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1653718017582	Marionette	INFO	Stopped listening on port 58030
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+
+###!!! [Parent][PGPUParent] Error: RunMessage(msgname=PGPU::Msg_ShutdownVR) Channel closing: too late to send/recv, messages will be lost
+
+rofilepnTFum"
+1653717973377	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\FUSZEN~1\\AppData\\Local\\Temp\\rust_mozprofilepnTFum\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:58089/devtools/browser/bc386f24-419e-4e88-9c61-2e18bf06fd45
+1653717976012	Marionette	INFO	Listening on port 58115
+Read port: 58115
+1653717976065	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1653718001016	Marionette	INFO	Stopped listening on port 58115
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Reply_DiscardBrowsingContext) Closed channel: cannot send/recv
+
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Reply_DiscardBrowsingContext) Closed channel: cannot send/recv
+
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Reply_DiscardBrowsingContext) Closed channel: cannot send/recv
+
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Reply_DiscardBrowsingContext) Closed channel: cannot send/recv
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PContent::Msg_DiscardBrowsingContext) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PContent::Reply_DiscardBrowsingContext) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: Send(msgname=PContent::Msg_ScriptError) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PHttpChannel::Msg_FailedAsyncOpen) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PHttpChannel::Msg_FailedAsyncOpen) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PHttpChannel::Msg_FailedAsyncOpen) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PHttpChannel::Msg_FailedAsyncOpen) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PHttpChannel::Msg_FailedAsyncOpen) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: Send(msgname=PContent::Msg_ScriptError) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PContent::Msg_DiscardBrowsingContext) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PContent::Reply_DiscardBrowsingContext) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Msg_DestroyBrowsingContextGroup) Closed channel: cannot send/recv
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PHttpChannel::Msg_DeleteSelf) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PHttpChannel::Msg_DeleteSelf) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: Send(msgname=PBrowser::Msg___delete__) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Msg_DestroyBrowsingContextGroup) Closed channel: cannot send/recv
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PContent::Reply_DiscardBrowsingContext) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PContent::Reply_DiscardBrowsingContext) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PContent::Reply_DiscardBrowsingContext) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][PContentChild] Error: Send(msgname=PBrowser::Msg___delete__) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Msg_DestroyBrowsingContextGroup) Closed channel: cannot send/recv
+
+
+###!!! [Parent][PContentParent] Error: Send(msgname=PContent::Msg_DestroyBrowsingContextGroup) Closed channel: cannot send/recv
+
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PHttpChannel::Msg_DeleteSelf) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][PCompositorManagerParent] Error: RunMessage(msgname=PCompositorManager::Msg_RemoveSharedSurface) Channel error: cannot send/recv
+
+
+###!!! [Parent][PCompositorManagerParent] Error: RunMessage(msgname=PCompositorManager::Msg_RemoveSharedSurface) Channel error: cannot send/recv
+
+
+###!!! [Parent][PCompositorManagerParent] Error: RunMessage(msgname=PAPZ::Msg___delete__) Channel error: cannot send/recv
+
+
+###!!! [Parent][PGPUParent] Error: RunMessage(msgname=PGPU::Msg_ShutdownVR) Channel closing: too late to send/recv, messages will be lost
+
+[Parent 12772, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
