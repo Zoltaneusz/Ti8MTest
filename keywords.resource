@@ -4,7 +4,8 @@ Documentation     This is a resource file, that can contain variables and keywor
 Library           Ti8MLibrary.py
 
 
-
+*** Variables ***
+${multi_use_var}
 
 *** Keywords ***
 Connect to Website
@@ -47,7 +48,7 @@ Connected to Website
 The User Scrolls To Search
     Load and switch to iframe
 	
-Inputs The Word ${keyword}
+Inputs The Word(s) ${keyword}
     Search in field    ${keyword}	
 
 Selects Seniority ${seniority}
@@ -57,4 +58,16 @@ The Job Result Should Be ${expected_job}
     List Job Results
     ${found_job}=   Get Job Result Text    0
     Should Be Equal    ${found_job}    ${expected_job}
-	Disconnect Webdriver
+
+	
+The Expected Job Number Is ${expected_number}
+	${multi_use_var}=   ${expected_number}
+
+The Time Should Take Maximum ${maximum_time}
+    Start Timer
+	List Job Results
+    ${found_number}=   Get Size Of Job Results
+	Get Timer
+    Should Be Equal    ${found_number}    ${multi_use_var}
+	${elapsed_time}=   Stop Timer
+	Should Be Equal    ${elapsed_time}    ${maximum_time}
