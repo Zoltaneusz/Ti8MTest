@@ -14,8 +14,8 @@ Test Teardown     Disconnect Webdriver
 
 *** Test Cases ***
 TC1 Behaviour Driven Scenario With Two Filters
-	[Tags]    skip
-	Given Connected To Website
+	[Tags]    run
+	Given Connected To Website With Search Mocking For    TC1
 	When The User Scrolls To Search
 	And Inputs The Word(s)    Machine
 	And Selects Seniority Senior
@@ -41,7 +41,8 @@ TC4 Scenario Job Subscription
 	Fill Job Subscription With    @{FORM_DATA}
 
 TC5 Scenario Search in Field and Click Links
-    Connect to Website For    TC5
+    [Tags]    run
+	Connect to Website With Search Mocking For    TC5
 	Search Keyword in Joblist    Machine
 	Verify Result    @{EXPECTED_JOBS}
 	Click Links

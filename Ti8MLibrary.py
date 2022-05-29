@@ -69,7 +69,7 @@ class Ti8MLibrary:
         #search = self.driver.find_element(By.NAME, "query")
         search.send_keys(keyword)
         #search.send_keys(Keys.RETURN)
-        time.sleep(15)
+        time.sleep(1)
         
     def search_in_seniority(self, seniority):
         # script = "return window.getComputedStyle(document.querySelector('div>input.1301739'),':before').getPropertyValue('text')"
@@ -80,7 +80,7 @@ class Ti8MLibrary:
             EC.presence_of_element_located((By.ID, self.seniority_array[1][index])))
         #check = self.driver.find_element(By.ID, self.seniority_array[1][index])
         check.send_keys(Keys.SPACE)
-        time.sleep(15)
+        time.sleep(1)
     
     
     def list_job_results(self):
