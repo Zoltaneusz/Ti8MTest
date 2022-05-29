@@ -19,6 +19,7 @@ class Ti8MLibrary:
         self.seniority_array = [["Junior", "Professional", "Senior"],
                                 ["1301737", "1301738", "1301739"]]
         
+        
     
     def connect(self, web_driver, url):
         self.driver = webdriver.Firefox(executable_path=web_driver)
@@ -155,7 +156,9 @@ class Ti8MLibrary:
         time.sleep(3)
     
     def fill_jobabo_form_page_1(self, stichwort, standort, bereich, seniorität):
-                
+        
+        
+        
         last_window = self.driver.window_handles[-1]
         self.driver.switch_to.window(last_window)       
         
@@ -194,16 +197,17 @@ class Ti8MLibrary:
             ))
         
         button.submit()
-        
+        time.sleep(5)
  
-        for request in self.driver.requests:  
-        	if request.response:  
-        		print(  
-        			request.url,  
-        			request.response.status_code,  
-        			request.response.headers['Content-Type'])  
     
-      
+        request = self.driver.requests[-1]  
+        req_string = request.body.decode()
+        #print(req_string)
+        if req_string.find("query=Python") > -1 and req_string.find("jobabo_bezeichnung=Header") > -1 and req_string.find("jobabo_email=fzoltan88%40gmail.com") > -1:
+            return True
+        else: return False
+         
+
     
 
 Ti8m=Ti8MLibrary()
@@ -223,6 +227,6 @@ Ti8m.load_and_switch_to_iframe()
 # print(Ti8m.get_job_result_text(0))
 Ti8m.send_key_to_button("ID", "jobabo-subscribe-button", "Return")
 Ti8m.fill_jobabo_form_page_1("Python", "Zürich", "Engineering", "Senior")
-Ti8m.fill_jobabo_form_page_2("Header", "fzoltan88@gmail.com")
+print(Ti8m.fill_jobabo_form_page_2("Header", "fzoltan88@gmail.com"))
 
 Ti8m.disconnect_webdriver()
