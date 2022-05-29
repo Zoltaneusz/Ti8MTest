@@ -68,6 +68,6 @@ The Time Should Take Maximum ${maximum_time}
 	List Job Results
     ${found_number}=   Get Size Of Job Results
 	Get Timer
-    Should Be Equal    ${found_number}    ${multi_use_var}
+    Should Be Equal    ${found_number}    100
 	${elapsed_time}=   Stop Timer
 	Should Be Equal    ${elapsed_time}    ${maximum_time}

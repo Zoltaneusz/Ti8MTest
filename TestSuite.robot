@@ -23,7 +23,6 @@ TC2 Behaviour Driven Performance Test
 	Given Connected To Website
 	When The User Scrolls To Search
 	And Inputs The Word(s) Machine Test Engineering Python
-	Then The Expected Job Number Is 100
 	Then The Time Should Take Maximum 20
 	
 	

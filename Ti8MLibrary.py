@@ -136,25 +136,41 @@ class Ti8MLibrary:
         return self.elapsed_time
     
     
-    def click_button(self,search_param, btn):
+    def send_key_to_button(self,search_param, btn, key):
         if search_param == "ID":
             by = By.ID
         elif search_param == "Class":
             by = By.CLASS_NAME
+            
+        if key == "Return":
+            pressed_key = Keys.RETURN
+        elif key == "Space":
+            pressed_key = Keys.SPACE
+            
         button = self.job_list = WebDriverWait(self.driver, 5).until(
             EC.presence_of_element_located((by, btn)
             ))
-        button.send_keys(Keys.RETURN)
+        button.send_keys(pressed_key)
         time.sleep(3)
     
     def fill_jobabo_form_page_1(self, stichwort, standort, bereich, seniorität):
+                
+        last_window = self.driver.window_handles[-1]
+        self.driver.switch_to.window(last_window)       
+        
+        #Stichwortsuche
         input_stichwortsuche = WebDriverWait(self.driver, 5).until(
             EC.presence_of_element_located((By.NAME, "query"))
             )
         input_stichwortsuche.send_keys(stichwort)
         
+        #Suche nach Chckboxen
         #TODO...fill other checkboxes
-        self.click_button("ID", "single-opt-in")
+        self.send_key_to_button("ID", "single-opt-in", "Space")
+        
+        #Click button to reach next page
+        #self.driver.switch_to.window(self.driver.window_handles[0])  
+        self.send_key_to_button("Class", "jobabo-subscribe-button", "Return")
 
     def fill_jobabo_form_page_2(self, bezeichnung, email):
         input_bezeichnung = WebDriverWait(self.driver, 5).until(
@@ -166,7 +182,14 @@ class Ti8MLibrary:
             EC.presence_of_element_located((By.NAME, "jobabo_email"))
             )
         input_email.send_keys(email)
-        self.click_button("Class", "jobabo-subscribe-button")
+        self.send_key_to_button("Class", "jobabo-subscribe-button", "Return")
+ 
+        for request in self.driver.requests:  
+        	if request.response:  
+        		print(  
+        			request.url,  
+        			request.response.status_code,  
+        			request.response.headers['Content-Type'])  
     
       
     
@@ -186,7 +209,7 @@ Ti8m.load_and_switch_to_iframe()
 # print(Ti8m.get_timer())
 # Ti8m.click_link_of_job_result("Professional Python Engineer")
 # print(Ti8m.get_job_result_text(0))
-Ti8m.click_button("ID", "jobabo-subscribe-button")
+Ti8m.send_key_to_button("ID", "jobabo-subscribe-button", "Return")
 Ti8m.fill_jobabo_form_page_1("Python", "Zürich", "Engineering", "Senior")
 Ti8m.fill_jobabo_form_page_2("Header", "fzoltan88@gmail.com")
 
