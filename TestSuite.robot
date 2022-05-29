@@ -13,7 +13,8 @@ Test Teardown     Disconnect Webdriver
 @{WORDS}    Machine Test Engineering Python
 
 *** Test Cases ***
-TC1 Behaviour Driven Scenario
+TC1 Behaviour Driven Scenario With Two Filters
+	[Tags]    skip
 	Given Connected To Website
 	When The User Scrolls To Search
 	And Inputs The Word(s)    Machine
@@ -22,21 +23,24 @@ TC1 Behaviour Driven Scenario
 	
 
 TC2 Behaviour Driven Performance Test
+	[Tags]    skip
 	Given Connected To Website
 	When The User Scrolls To Search
 	And Inputs The Word(s)    @{WORDS}
-	Then The Time Should Take Maximum 20
+	Then The Time Should Take Maximum 5
 	
 TC3 Verify Location Consistency
+	[Tags]    skip
     Connect to Website
 	Search Keyword in Joblist    Düsseldorf
 	Verify Result Location    Düsseldorf
 
 TC4 Scenario Job Subscription
+	[Tags]    skip
 	Connect to Website
 	Fill Job Subscription With    @{FORM_DATA}
 
-TC5 Search in Field and Click Link
+TC5 Scenario Search in Field and Click Links
     Connect to Website
 	Search Keyword in Joblist    Machine
 	Verify Result    @{EXPECTED_JOBS}
