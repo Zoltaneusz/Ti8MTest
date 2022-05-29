@@ -68,6 +68,17 @@ The Time Should Take Maximum ${maximum_time}
 	List Job Results
     ${found_number}=   Get Size Of Job Results
 	Get Timer
-    Should Be Equal    ${found_number}    100
+    Should Be Equal    ${found_number}    113
 	${elapsed_time}=   Stop Timer
 	Should Be Equal    ${elapsed_time}    ${maximum_time}
+
+Fill Job Subscription With
+    [Arguments]    @{FORM_DATA}
+	Load And Switch To Iframe
+	Send Key To Button    ID    Jobabo    Return
+	Input Jobabo Form Data Python @{FORM_DATA}
+	Fill Jobabo Form Page 1
+	Fill Jobabo Form Page 2
+	${True}    Intercept Traffic And Validate Result
+	Should Be Equal    ${True}    True
+	

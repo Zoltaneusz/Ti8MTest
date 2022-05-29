@@ -18,7 +18,12 @@ class Ti8MLibrary:
         self.elapsed_time = 0
         self.seniority_array = [["Junior", "Professional", "Senior"],
                                 ["1301737", "1301738", "1301739"]]
-        
+        self.stichwort = None
+        self.standort = None
+        self.bereich = None
+        self.seniorität = None
+        self.bezeichnung = None
+        self.email = None
         
     
     def connect(self, web_driver, url):
@@ -44,14 +49,16 @@ class Ti8MLibrary:
         time.sleep(4)
         self.first_tab = self.driver.current_window_handle
         self.driver.switch_to.frame(self.search_iframe)
+          
+
     
     def search_in_field(self, keyword):
         search = WebDriverWait(self.driver, 15).until(
             EC.presence_of_element_located((By.NAME, "query")))
         #search = self.driver.find_element(By.NAME, "query")
         search.send_keys(keyword)
-        search.send_keys(Keys.RETURN)
-        time.sleep(5)
+        #search.send_keys(Keys.RETURN)
+        time.sleep(10)
         
     def search_in_seniority(self, seniority):
         # script = "return window.getComputedStyle(document.querySelector('div>input.1301739'),':before').getPropertyValue('text')"
@@ -62,7 +69,7 @@ class Ti8MLibrary:
             EC.presence_of_element_located((By.ID, self.seniority_array[1][index])))
         #check = self.driver.find_element(By.ID, self.seniority_array[1][index])
         check.send_keys(Keys.SPACE)
-        time.sleep(5)
+        time.sleep(10)
     
     
     def list_job_results(self):
@@ -72,6 +79,10 @@ class Ti8MLibrary:
                 )
           
             self.job_results = self.job_list.find_elements(By.TAG_NAME, "a")
+            # self.job_results = WebDriverWait(self.driver, 15).until(
+            #     EC.presence_of_element_located((By.CLASS_NAME, nr_of_jobs))
+            #     )
+            
             #print(type(self.job_results))
             #self.job_results_iter = iter(self.job_results)
             #print(type(self.job_results))
@@ -108,7 +119,7 @@ class Ti8MLibrary:
     def get_size_of_job_results(self):
         #return sum(1 for _ in self.job_results)
         #return len(list(self.job_results_iter))
-        return len(self.job_results)
+        return str(len(self.job_results))
     
     def click_link_of_job_result(self, link):
         #self.driver.switch_to.window(self.first_tab)
@@ -148,17 +159,31 @@ class Ti8MLibrary:
             pressed_key = Keys.RETURN
         elif key == "Space":
             pressed_key = Keys.SPACE
-            
+         
         button = self.job_list = WebDriverWait(self.driver, 5).until(
-            EC.presence_of_element_located((by, btn)
+            EC.presence_of_element_located((by, self.web_element_ID_finder(btn))
             ))
         button.send_keys(pressed_key)
         time.sleep(3)
+
+    def web_element_ID_finder(self, input_elem):
+        if input_elem == "Jobabo":
+            return "jobabo-subscribe-button"
+        elif input_elem == "Terms Checkbox":
+            return "single-opt-in"
+        else: return "NaN"
+
+    def input_jobabo_form_data(self, stichwort, standort, bereich, seniorität, bezeichnung, email):
+        self.stichwort = stichwort
+        self.standort = standort
+        self.bereich = bereich
+        self.seniorität = seniorität
+        self.bezeichnung = bezeichnung
+        self.email = email.replace("@", "%40")
+
     
-    def fill_jobabo_form_page_1(self, stichwort, standort, bereich, seniorität):
-        
-        
-        
+    def fill_jobabo_form_page_1(self):
+                
         last_window = self.driver.window_handles[-1]
         self.driver.switch_to.window(last_window)       
         
@@ -166,29 +191,29 @@ class Ti8MLibrary:
         input_stichwortsuche = WebDriverWait(self.driver, 5).until(
             EC.presence_of_element_located((By.NAME, "query"))
             )
-        input_stichwortsuche.send_keys(stichwort)
+        input_stichwortsuche.send_keys(self.stichwort)
         
         #Suche nach Chckboxen
         #TODO...fill other checkboxes
-        self.send_key_to_button("ID", "single-opt-in", "Space")
+        self.send_key_to_button("ID", "Terms Checkbox", "Space")
         
         #Click button to reach next page
-        self.send_key_to_button("Class", "jobabo-subscribe-button", "Return")
+        self.send_key_to_button("Class", "Jobabo", "Return")
 
-    def fill_jobabo_form_page_2(self, bezeichnung, email):
+    def fill_jobabo_form_page_2(self):
         
         # Fill Bezeichnung
         input_bezeichnung = WebDriverWait(self.driver, 5).until(
             EC.presence_of_element_located((By.NAME, "jobabo_bezeichnung"))
             )
-        input_bezeichnung.send_keys(bezeichnung)
+        input_bezeichnung.send_keys(self.bezeichnung)
         
         # Fill e-mail
         # TODO: test for e-mail validation function as Unit-Test!
         input_email = WebDriverWait(self.driver, 5).until(
             EC.presence_of_element_located((By.NAME, "jobabo_email"))
             )
-        input_email.send_keys(email)
+        input_email.send_keys(self.email)
         
         #Click button to finish Jobabo
         #self.send_key_to_button("Class", "jobabo-subscribe-button", "Return")
@@ -199,34 +224,41 @@ class Ti8MLibrary:
         button.submit()
         time.sleep(5)
  
+    def intercept_traffic_and_validate_result(self):
     
+        # If e-mail contained "%40" itself, the test would cause false negative.
+        
+        #print(self.email)
         request = self.driver.requests[-1]  
+        req_string = None
         req_string = request.body.decode()
-        #print(req_string)
-        if req_string.find("query=Python") > -1 and req_string.find("jobabo_bezeichnung=Header") > -1 and req_string.find("jobabo_email=fzoltan88%40gmail.com") > -1:
+        print(req_string)
+        if req_string.find("query="+self.stichwort) > -1 and req_string.find("jobabo_bezeichnung="+self.bezeichnung) > -1 and req_string.find("jobabo_email="+self.email) > -1:
             return True
         else: return False
          
 
     
 
-Ti8m=Ti8MLibrary()
-Ti8m.connect('C:\Program Files (x86)\geckodriver.exe', 'https://www.ti8m.com/de/career')
-Ti8m.load_and_switch_to_iframe()
-# Ti8m.start_timer()
-# Ti8m.search_in_field('Machine')
-# Ti8m.search_in_seniority("Senior")
-#time.sleep(5)
-# Ti8m.list_job_results()
-# Ti8m.list_job_results_with_timeout(0.5)
-# print(Ti8m.get_list_of_job_results())
-# Ti8m.stop_timer()
-# print(Ti8m.get_size_of_job_results() == 1)
-# print(Ti8m.get_timer())
-# Ti8m.click_link_of_job_result("Professional Python Engineer")
-# print(Ti8m.get_job_result_text(0))
-Ti8m.send_key_to_button("ID", "jobabo-subscribe-button", "Return")
-Ti8m.fill_jobabo_form_page_1("Python", "Zürich", "Engineering", "Senior")
-print(Ti8m.fill_jobabo_form_page_2("Header", "fzoltan88@gmail.com"))
+# Ti8m=Ti8MLibrary()
+# Ti8m.connect('C:\Program Files (x86)\geckodriver.exe', 'https://www.ti8m.com/de/career')
+# Ti8m.load_and_switch_to_iframe()
+# # Ti8m.start_timer()
+# # Ti8m.search_in_field('Machine Python Senior')
+# # Ti8m.search_in_seniority("Senior")
+# #time.sleep(5)
+# # Ti8m.list_job_results()
+# # Ti8m.list_job_results_with_timeout(0.5)
+# # print(Ti8m.get_list_of_job_results())
+# # Ti8m.stop_timer()
+# # print(Ti8m.get_size_of_job_results() == 1)
+# # print(Ti8m.get_timer())
+# # Ti8m.click_link_of_job_result("Professional Python Engineer")
+# # print(Ti8m.get_job_result_text(0))
+# Ti8m.send_key_to_button("ID", "Jobabo", "Return")
+# Ti8m.input_jobabo_form_data("Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com")
+# Ti8m.fill_jobabo_form_page_1()
+# Ti8m.fill_jobabo_form_page_2()
+# print(Ti8m.intercept_traffic_and_validate_result())
 
-Ti8m.disconnect_webdriver()
+# Ti8m.disconnect_webdriver()
