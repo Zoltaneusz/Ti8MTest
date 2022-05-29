@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ti&m: Career center</title>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,600,700" rel="stylesheet" type="text/css" media="all"/>
+    <link href="/careercenter/1004220/assets/css/ti8m.css" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-28214495-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-28214495-1');
+    </script>
+</head>
+<body class="smooth-loading">
+<div id="wrapper">
+    <h1>Offene Stellen</h1>
+    <div class="flex-wrap">
+        <div class="filters">
+            <h2 class="mobile">Filter</h2>
+            <form id="careercenter-form" name="ohform" class="form" method="post">
+                <input id="offset" name="offset" type="hidden" value="0">
+                <input id="limit" name="limit" type="hidden" value="200">
+                <input id="lang" name="lang" type="hidden" value="de">
+                <div id="search">
+                    <input name="query" value="Machine" placeholder="Stichwortsuche">
+                    <svg class="lupe" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke="#004D9F" d="M10.3636 3C8.90722 3 7.48354 3.43187 6.2726 4.24099C5.06167 5.05011 4.11786 6.20015 3.56052 7.54567C3.00319 8.89119 2.85737 10.3718 3.14149 11.8002C3.42562 13.2286 4.12693 14.5406 5.15675 15.5704C6.18657 16.6003 7.49863 17.3016 8.92703 17.5857C10.3554 17.8698 11.836 17.724 13.1815 17.1667C14.527 16.6093 15.6771 15.6655 16.4862 14.4546C17.2953 13.2437 17.7272 11.82 17.7272 10.3636C17.7271 8.41069 16.9512 6.5378 15.5703 5.15688C14.1894 3.77597 12.3165 3.00012 10.3636 3V3Z" stroke-width="2" stroke-miterlimit="10"></path>
+                        <path fill="#004D9F" d="M16.5645 15.1503C16.174 14.7598 15.5408 14.7598 15.1503 15.1503C14.7598 15.5408 14.7598 16.174 15.1503 16.5645L16.5645 15.1503ZM15.1503 16.5645L20.293 21.7072L21.7072 20.293L16.5645 15.1503L15.1503 16.5645Z"></path>
+                    </svg>
+                </div>
+                <div class="filter">
+                    <h2>Standort</h2>
+                    <div class="checkbox-group">
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301743" name="filter_10" value="1301743" >
+                                <label for="1301743">Zürich</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1343332" name="filter_10" value="1343332" >
+                                <label for="1343332">Basel</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301744" name="filter_10" value="1301744" >
+                                <label for="1301744">Bern</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1382164" name="filter_10" value="1382164" >
+                                <label for="1382164">Düsseldorf</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301745" name="filter_10" value="1301745" >
+                                <label for="1301745">Frankfurt</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301746" name="filter_10" value="1301746" >
+                                <label for="1301746">Singapur</label>
+                            </div>
+                        
+                    </div>
+                </div>
+                <div class="filter">
+                    <h2>Bereich</h2>
+                    <div class="checkbox-group">
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301753" name="filter_20" value="1301753" >
+                                <label for="1301753">Consulting</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301750" name="filter_20" value="1301750" >
+                                <label for="1301750">Sales</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301752" name="filter_20" value="1301752" >
+                                <label for="1301752">Design</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301748" name="filter_20" value="1301748" >
+                                <label for="1301748">Engineering</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301751" name="filter_20" value="1301751" >
+                                <label for="1301751">Cloud</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301747" name="filter_20" value="1301747" >
+                                <label for="1301747">Corporate Center</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301749" name="filter_20" value="1301749" >
+                                <label for="1301749">Security</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301754" name="filter_20" value="1301754" >
+                                <label for="1301754">Next Generation</label>
+                            </div>
+                        
+                    </div>
+                </div>
+                <div class="filter">
+                    <h2>Seniorität</h2>
+                    <div class="checkbox-group">
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301737" name="filter_30" value="1301737" >
+                                <label for="1301737">Junior</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301738" name="filter_30" value="1301738" >
+                                <label for="1301738">Professional</label>
+                            </div>
+                        
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="1301739" name="filter_30" value="1301739" checked>
+                                <label for="1301739">Senior</label>
+                            </div>
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+        <main class="content">
+            <div class="job-list">
+                <div id="jobs">
+                    
+                        
+                            <div class="job job-0">
+                                <div class="title">
+                                    <a href="https://career.ti8m.com/offene-stellen/cloud-data-architect-mit-flair-fuer-ai/eea643de-4f42-4859-b8fd-da25b79d2b52"
+                                       title="Cloud Data Architect mit Flair für AI"
+                                       target="_blank">
+                                        Cloud Data Architect mit Flair für AI
+                                        <span></span>
+                                    </a>
+                                </div>
+                                <div class="location">
+                                    Bern
+                                </div>
+                                <div class="branch">
+                                    Cloud
+                                </div>
+                            </div>
+                        
+                    
+                </div>
+            </div>
+            <div class="jobabo">
+                <img src="/careercenter/1004220/assets/images/svg/icons/Job-Mail-Abo.svg" width="90">
+                <h2>Finde die Position, die am besten zu dir passt</h2>
+                <p>Es werden nur Bewerbungen berücksichtigt, die sich auf aktuelle Stellenangebote auf unserer Karriere-Website beziehen. Erstelle dein persönliches Suchprofil und erhalte dank unserem Job-Abo regelmässig neue Stellenangebote per E-Mail zugestellt!</p>
+                <a id="jobabo-subscribe-button"
+                   class="button jobabo-subscribe-button modal-trigger"
+                   href="jobabo?lang=de"
+                   title="Neue Jobs abonnieren"
+                   target="_blank"
+                   onclick="window.open(this.href, '_blank', 'width=500,height=700,location=no,scrollbars=no,left=250,top=0,resizable=yes');return false;">
+                    Neue Jobs abonnieren
+                </a>
+                <!-- Modal Structure
+                <div id="modal" class="ui modal">
+                    <div class="modal-content">
+                        <a href="javascript:" class="modal-close waves-effect waves-green btn-flat"></a>
+                        <iframe id="jobabo" src="https://ohws.prospective.ch/public/v1/careercenter/1004220/jobabo?lang=de" frameborder="0" scrolling="no"></iframe>
+                    </div>
+                </div>
+                 -->
+            </div>
+        </main>
+    </div>
+    <a href="#top" class="to-top">
+        <svg class="svg-icon " width="47" height="48" viewBox="0 0 47 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.1562 24.6206L23.5 32.0625L30.8438 24.6206M23.5 31.0284V15.9375" stroke="#004D9F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M23.5 6C13.7695 6 5.875 14.0625 5.875 24C5.875 33.9375 13.7695 42 23.5 42C33.2305 42 41.125 33.9375 41.125 24C41.125 14.0625 33.2305 6 23.5 6Z" stroke="#004D9F" stroke-width="2" stroke-miterlimit="10"></path>
+    </svg>
+    </a>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.contentWindow.min.js"></script>
+<script src="/careercenter/1004220/assets/js/ti8m.js"></script>
+</body>
+</html>

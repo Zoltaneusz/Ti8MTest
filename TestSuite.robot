@@ -41,7 +41,7 @@ TC4 Scenario Job Subscription
 	Fill Job Subscription With    @{FORM_DATA}
 
 TC5 Scenario Search in Field and Click Links
-    Connect to Website
+    Connect to Website For    TC5
 	Search Keyword in Joblist    Machine
 	Verify Result    @{EXPECTED_JOBS}
 	Click Links

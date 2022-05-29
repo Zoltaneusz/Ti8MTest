@@ -8,8 +8,9 @@ Library           Ti8MLibrary.py
 ${multi_use_var}
 
 *** Keywords ***
-Connect to Website
-    Connect    C:/Program Files (x86)/geckodriver.exe    https://www.ti8m.com/de/career
+Connect to Website For
+	[Arguments]    ${Testcasenr}
+    Connect With Interceptor    C:/Program Files (x86)/geckodriver.exe    https://www.ti8m.com/de/career    ${Testcasenr}  
 	Allow Cookies
 	
 Search Keyword in Joblist

@@ -24,13 +24,15 @@ class Ti8MLibrary:
         self.seniorität = None
         self.bezeichnung = None
         self.email = None
+        self.mock_html_path = ''
         
 # Functions regarding connection-----------------------------
     def connect(self, web_driver, url):
         self.driver = webdriver.Firefox(executable_path=web_driver)
         self.driver.get(url)
 
-    def connect_with_interceptor(self, web_driver, url):
+    def connect_with_interceptor(self, web_driver, url, test_case_nr):
+        self.set_mock_html_path(test_case_nr)
         self.driver = webdriver.Firefox(executable_path=web_driver)
         self.driver.request_interceptor = self.interceptor
         self.driver.get(url)
@@ -246,39 +248,42 @@ class Ti8MLibrary:
             return "True"
         else: return "False"
          
-# Mock Network Response-----------
+# Mock Network Response With Predefined HTML-----------
     def interceptor(self, request):
-        f = open("TC5 Network Request Mock.txt", "r", encoding='utf-8')
+        
+        f = open(self.mock_html_path, "r", encoding='utf-8')
         interceptor_html_response = f.read()      
         f.close()
-        print(interceptor_html_response)
-        interceptor_html_response_b = bytes(interceptor_html_response, 'utf-8')
+        
         if request.url == "https://career.ti8m.com/?lang=de":
             request.create_response(
                 status_code = 200,
                 headers={'Content-Type': 'text/html'},
                 body=interceptor_html_response)
     
+    def set_mock_html_path(self, test_case_nr):
+       #test_case_nr must be in format "TCX", where X:1,2,...,n
+            self.mock_html_path = test_case_nr + " Network Request Mock.txt"
 
-Ti8m=Ti8MLibrary()
-Ti8m.connect_with_interceptor('C:\Program Files (x86)\geckodriver.exe', 'https://www.ti8m.com/de/career')
-Ti8m.load_and_switch_to_iframe()
-# Ti8m.start_timer()
-Ti8m.search_in_field('Machine')
-# Ti8m.search_in_seniority("Senior")
-#time.sleep(5)
-# Ti8m.list_job_results()
-# Ti8m.list_job_results_with_timeout(0.5)
-# print(Ti8m.get_list_of_job_results())
-# Ti8m.stop_timer()
-# print(Ti8m.get_size_of_job_results() == 1)
-# print(Ti8m.get_timer())
-# Ti8m.click_link_of_job_result("Professional Python Engineer")
-# print(Ti8m.get_job_result_text(0))
-# Ti8m.send_key_to_button("ID", "Jobabo", "Return")
-# Ti8m.input_jobabo_form_data("Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com")
-# Ti8m.fill_jobabo_form_page_1()
-# Ti8m.fill_jobabo_form_page_2()
-# print(Ti8m.intercept_traffic_and_validate_result())
+# Ti8m=Ti8MLibrary()
+# Ti8m.connect_with_interceptor('C:\Program Files (x86)\geckodriver.exe', 'https://www.ti8m.com/de/career', 'TC5')
+# Ti8m.load_and_switch_to_iframe()
+# # Ti8m.start_timer()
+# Ti8m.search_in_field('Machine')
+# # Ti8m.search_in_seniority("Senior")
+# #time.sleep(5)
+# # Ti8m.list_job_results()
+# # Ti8m.list_job_results_with_timeout(0.5)
+# # print(Ti8m.get_list_of_job_results())
+# # Ti8m.stop_timer()
+# # print(Ti8m.get_size_of_job_results() == 1)
+# # print(Ti8m.get_timer())
+# # Ti8m.click_link_of_job_result("Professional Python Engineer")
+# # print(Ti8m.get_job_result_text(0))
+# # Ti8m.send_key_to_button("ID", "Jobabo", "Return")
+# # Ti8m.input_jobabo_form_data("Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com")
+# # Ti8m.fill_jobabo_form_page_1()
+# # Ti8m.fill_jobabo_form_page_2()
+# # print(Ti8m.intercept_traffic_and_validate_result())
 
-Ti8m.disconnect_webdriver()
+# Ti8m.disconnect_webdriver()
