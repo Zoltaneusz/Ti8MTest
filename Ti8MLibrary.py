@@ -169,20 +169,31 @@ class Ti8MLibrary:
         self.send_key_to_button("ID", "single-opt-in", "Space")
         
         #Click button to reach next page
-        #self.driver.switch_to.window(self.driver.window_handles[0])  
         self.send_key_to_button("Class", "jobabo-subscribe-button", "Return")
 
     def fill_jobabo_form_page_2(self, bezeichnung, email):
+        
+        # Fill Bezeichnung
         input_bezeichnung = WebDriverWait(self.driver, 5).until(
             EC.presence_of_element_located((By.NAME, "jobabo_bezeichnung"))
             )
         input_bezeichnung.send_keys(bezeichnung)
         
+        # Fill e-mail
+        # TODO: test for e-mail validation function as Unit-Test!
         input_email = WebDriverWait(self.driver, 5).until(
             EC.presence_of_element_located((By.NAME, "jobabo_email"))
             )
         input_email.send_keys(email)
-        self.send_key_to_button("Class", "jobabo-subscribe-button", "Return")
+        
+        #Click button to finish Jobabo
+        #self.send_key_to_button("Class", "jobabo-subscribe-button", "Return")
+        button = WebDriverWait(self.driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "jobabo-subscribe-button")
+            ))
+        
+        button.submit()
+        
  
         for request in self.driver.requests:  
         	if request.response:  
