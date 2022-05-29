@@ -25,10 +25,13 @@ class Ti8MLibrary:
         self.bezeichnung = None
         self.email = None
         
-    
+# Functions regarding connection-----------------------------
     def connect(self, web_driver, url):
         self.driver = webdriver.Firefox(executable_path=web_driver)
         self.driver.get(url)
+        
+    def disconnect_webdriver(self):
+        self.driver.quit()
         
     def allow_cookies(self):
         WebDriverWait(self.driver, 20).until(
@@ -36,10 +39,11 @@ class Ti8MLibrary:
                 (By.CLASS_NAME, "cc-allow"))).click()
         
     
+# Functions job search-----------------------------   
     
-    #Navigate to search field
     def load_and_switch_to_iframe(self):
-        
+      #Function navigates to search field 
+      
         self.search_iframe = self.driver.find_element(By.CLASS_NAME, "ti8m-iframe")
         
         desired_y = (self.search_iframe.size['height'] / 2) + self.search_iframe.location['y'] + 100
@@ -130,8 +134,7 @@ class Ti8MLibrary:
         found_location = self.job_list.find_element(By.CLASS_NAME, "location")
         return found_location.text
     
-    def disconnect_webdriver(self):
-        self.driver.quit()
+
 
 #Functions for Timer Functionality---------------
 
@@ -143,6 +146,7 @@ class Ti8MLibrary:
         
     def get_timer(self):
         return self.elapsed_time
+    
     
 #Functions for Finding Webelement---------------   
     

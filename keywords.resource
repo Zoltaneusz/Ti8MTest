@@ -69,7 +69,7 @@ The Time Should Take Maximum ${maximum_time}
 	Stop Timer
     Should Be Equal    ${found_number}    113
 	${elapsed_time}=   Get Timer
-	Should Be Equal    ${elapsed_time}    ${maximum_time}
+	Should Be True    ${elapsed_time}<${maximum_time}
 
 Fill Job Subscription With
     [Arguments]    @{FORM_DATA}
