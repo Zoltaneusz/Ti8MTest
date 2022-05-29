@@ -58,7 +58,7 @@ class Ti8MLibrary:
         #search = self.driver.find_element(By.NAME, "query")
         search.send_keys(keyword)
         #search.send_keys(Keys.RETURN)
-        time.sleep(10)
+        time.sleep(15)
         
     def search_in_seniority(self, seniority):
         # script = "return window.getComputedStyle(document.querySelector('div>input.1301739'),':before').getPropertyValue('text')"
@@ -69,7 +69,7 @@ class Ti8MLibrary:
             EC.presence_of_element_located((By.ID, self.seniority_array[1][index])))
         #check = self.driver.find_element(By.ID, self.seniority_array[1][index])
         check.send_keys(Keys.SPACE)
-        time.sleep(10)
+        time.sleep(15)
     
     
     def list_job_results(self):
@@ -79,13 +79,7 @@ class Ti8MLibrary:
                 )
           
             self.job_results = self.job_list.find_elements(By.TAG_NAME, "a")
-            # self.job_results = WebDriverWait(self.driver, 15).until(
-            #     EC.presence_of_element_located((By.CLASS_NAME, nr_of_jobs))
-            #     )
-            
-            #print(type(self.job_results))
-            #self.job_results_iter = iter(self.job_results)
-            #print(type(self.job_results))
+
 
         except:  
             print("Fail")
@@ -139,6 +133,8 @@ class Ti8MLibrary:
     def disconnect_webdriver(self):
         self.driver.quit()
 
+#Functions for Timer Functionality---------------
+
     def start_timer(self):
         self.elapsed_time = time.perf_counter()
         
@@ -148,6 +144,7 @@ class Ti8MLibrary:
     def get_timer(self):
         return self.elapsed_time
     
+#Functions for Finding Webelement---------------   
     
     def send_key_to_button(self,search_param, btn, key):
         if search_param == "ID":
@@ -173,13 +170,16 @@ class Ti8MLibrary:
             return "single-opt-in"
         else: return "NaN"
 
-    def input_jobabo_form_data(self, stichwort, standort, bereich, seniorität, bezeichnung, email):
-        self.stichwort = stichwort
-        self.standort = standort
-        self.bereich = bereich
-        self.seniorität = seniorität
-        self.bezeichnung = bezeichnung
-        self.email = email.replace("@", "%40")
+#Functions for Jobabo Test---------------
+
+    def input_jobabo_form_data(self, args):
+        
+        self.stichwort = args[0]
+        self.standort = args[1]
+        self.bereich = args[2]
+        self.seniorität = args[3]
+        self.bezeichnung = args[4]
+        self.email = args[5].replace("@", "%40")
 
     
     def fill_jobabo_form_page_1(self):
@@ -234,8 +234,8 @@ class Ti8MLibrary:
         req_string = request.body.decode()
         print(req_string)
         if req_string.find("query="+self.stichwort) > -1 and req_string.find("jobabo_bezeichnung="+self.bezeichnung) > -1 and req_string.find("jobabo_email="+self.email) > -1:
-            return True
-        else: return False
+            return "True"
+        else: return "False"
          
 
     

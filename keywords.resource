@@ -43,13 +43,12 @@ Disconnect
 Connected to Website
     Connect    C:/Program Files (x86)/geckodriver.exe    https://www.ti8m.com/de/career
 	
-	
-
 The User Scrolls To Search
     Load and switch to iframe
 	
-Inputs The Word(s) ${keyword}
-    Search in field    ${keyword}	
+Inputs The Word(s)
+    [Arguments]    @{WORDS}
+    Search in field    @{WORDS}	
 
 Selects Seniority ${seniority}
 	Search in seniority    ${seniority}
@@ -67,16 +66,16 @@ The Time Should Take Maximum ${maximum_time}
     Start Timer
 	List Job Results
     ${found_number}=   Get Size Of Job Results
-	Get Timer
+	Stop Timer
     Should Be Equal    ${found_number}    113
-	${elapsed_time}=   Stop Timer
+	${elapsed_time}=   Get Timer
 	Should Be Equal    ${elapsed_time}    ${maximum_time}
 
 Fill Job Subscription With
     [Arguments]    @{FORM_DATA}
 	Load And Switch To Iframe
 	Send Key To Button    ID    Jobabo    Return
-	Input Jobabo Form Data Python @{FORM_DATA}
+	Input Jobabo Form Data    @{FORM_DATA}
 	Fill Jobabo Form Page 1
 	Fill Jobabo Form Page 2
 	${True}    Intercept Traffic And Validate Result
