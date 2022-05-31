@@ -14,7 +14,7 @@ Connect to Website With Search Mocking For
 	Allow Cookies
 
 Connect to Website
-    Connect With Interceptor    https://www.ti8m.com/de/career
+    Connect    https://www.ti8m.com/de/career
 	Allow Cookies	
 	
 Search Keyword in Joblist
@@ -33,6 +33,7 @@ Verify Result
 Verify Result Location
     [Arguments]    ${expected_location}
 	List Job Results
+	Sleep 10s
 	${found_location}    Get Job Result Location
 	Should Be Equal    ${found_location}    ${expected_location}
 
@@ -87,6 +88,6 @@ Fill Job Subscription With
 	Input Jobabo Form Data    @{FORM_DATA}
 	Fill Jobabo Form Page 1
 	Fill Jobabo Form Page 2
-	${True}    Intercept Traffic And Validate Result
+	${True}    Intercept Email And Validate Result
 	Should Be Equal    ${True}    True
 	

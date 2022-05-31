@@ -28,12 +28,12 @@ class Ti8MLibrary:
         
 # Functions regarding connection-----------------------------
     def connect(self, url):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.get(url)
 
     def connect_with_interceptor(self, url, test_case_nr):
         self.set_mock_html_path(test_case_nr)
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.request_interceptor = self.interceptor
         self.driver.get(url)
         
@@ -114,7 +114,7 @@ class Ti8MLibrary:
     def get_list_of_job_results(self):
         job_result_texts= []
         for job in self.job_results:
-            #print(job.text)
+            # print(job.text)
             job_result_texts.append(job.text)
         return job_result_texts
     
@@ -190,7 +190,7 @@ class Ti8MLibrary:
         self.bereich = args[2]
         self.seniorität = args[3]
         self.bezeichnung = args[4]
-        self.email = args[5].replace("@", "%40")
+        self.email = args[5]
 
     
     def fill_jobabo_form_page_1(self):
@@ -235,18 +235,20 @@ class Ti8MLibrary:
         button.submit()
         time.sleep(5)
  
-    def intercept_traffic_and_validate_result(self):
+    def intercept_email_and_validate_result(self):
     
         # If e-mail contained "%40" itself, the test would cause false negative.
-        
+        self.email = self.email.replace("@", "%40")
         #print(self.email)
-        request = self.driver.requests[-1]  
         req_string = None
-        req_string = request.body.decode()
-        print(req_string)
-        if req_string.find("query="+self.stichwort) > -1 and req_string.find("jobabo_bezeichnung="+self.bezeichnung) > -1 and req_string.find("jobabo_email="+self.email) > -1:
-            return "True"
-        else: return "False"
+        # request = self.driver.requests[-1]  
+        for req in self.driver.requests[len(self.driver.requests)-4:]:
+            req_string = req.body.decode()
+            if req_string.find("query="+self.stichwort) > -1:
+                print(req_string)
+                if req_string.find("query="+self.stichwort) > -1 and req_string.find("jobabo_bezeichnung="+self.bezeichnung) > -1 and req_string.find("jobabo_email="+self.email) > -1:
+                    return "True"
+                else: return "False"
          
 # Mock Network Response With Predefined HTML-----------
     def interceptor(self, request):
@@ -266,10 +268,11 @@ class Ti8MLibrary:
             self.mock_html_path = test_case_nr + " Network Request Mock.txt"
 
 # Ti8m=Ti8MLibrary()
-# Ti8m.connect_with_interceptor('C:\Program Files (x86)\geckodriver.exe', 'https://www.ti8m.com/de/career', 'TC5')
+# # Ti8m.connect_with_interceptor('https://www.ti8m.com/de/career', 'TC5')
+# Ti8m.connect('https://www.ti8m.com/de/career')
 # Ti8m.load_and_switch_to_iframe()
 # # Ti8m.start_timer()
-# Ti8m.search_in_field('Machine')
+# # Ti8m.search_in_field('Machine')
 # # Ti8m.search_in_seniority("Senior")
 # #time.sleep(5)
 # # Ti8m.list_job_results()
@@ -280,10 +283,10 @@ class Ti8MLibrary:
 # # print(Ti8m.get_timer())
 # # Ti8m.click_link_of_job_result("Professional Python Engineer")
 # # print(Ti8m.get_job_result_text(0))
-# # Ti8m.send_key_to_button("ID", "Jobabo", "Return")
-# # Ti8m.input_jobabo_form_data("Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com")
-# # Ti8m.fill_jobabo_form_page_1()
-# # Ti8m.fill_jobabo_form_page_2()
-# # print(Ti8m.intercept_traffic_and_validate_result())
+# Ti8m.send_key_to_button("ID", "Jobabo", "Return")
+# Ti8m.input_jobabo_form_data(["Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com"])
+# Ti8m.fill_jobabo_form_page_1()
+# Ti8m.fill_jobabo_form_page_2()
+# print(Ti8m.intercept_email_and_validate_result())
 
 # Ti8m.disconnect_webdriver()
