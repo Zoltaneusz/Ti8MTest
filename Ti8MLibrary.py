@@ -27,13 +27,13 @@ class Ti8MLibrary:
         self.mock_html_path = ''
         
 # Functions regarding connection-----------------------------
-    def connect(self, web_driver, url):
-        self.driver = webdriver.Firefox(executable_path=web_driver)
+    def connect(self, url):
+        self.driver = webdriver.Firefox()
         self.driver.get(url)
 
-    def connect_with_interceptor(self, web_driver, url, test_case_nr):
+    def connect_with_interceptor(self, url, test_case_nr):
         self.set_mock_html_path(test_case_nr)
-        self.driver = webdriver.Firefox(executable_path=web_driver)
+        self.driver = webdriver.Firefox()
         self.driver.request_interceptor = self.interceptor
         self.driver.get(url)
         

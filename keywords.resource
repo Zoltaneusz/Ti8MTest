@@ -10,11 +10,11 @@ ${multi_use_var}
 *** Keywords ***
 Connect to Website With Search Mocking For
 	[Arguments]    ${Testcasenr}
-    Connect With Interceptor    C:/Program Files (x86)/geckodriver.exe    https://www.ti8m.com/de/career    ${Testcasenr}  
+    Connect With Interceptor    https://www.ti8m.com/de/career    ${Testcasenr}  
 	Allow Cookies
 
 Connect to Website
-    Connect With Interceptor    C:/Program Files (x86)/geckodriver.exe    https://www.ti8m.com/de/career
+    Connect With Interceptor    https://www.ti8m.com/de/career
 	Allow Cookies	
 	
 Search Keyword in Joblist
@@ -46,11 +46,11 @@ Disconnect
 	
 	
 Connected to Website
-    Connect    C:/Program Files (x86)/geckodriver.exe    https://www.ti8m.com/de/career
+    Connect    https://www.ti8m.com/de/career
 
 Connected to Website With Search Mocking For
 	[Arguments]    ${Testcasenr}
-    Connect With Interceptor    C:/Program Files (x86)/geckodriver.exe    https://www.ti8m.com/de/career    ${Testcasenr}
+    Connect With Interceptor    https://www.ti8m.com/de/career    ${Testcasenr}
 	
 The User Scrolls To Search
     Load and switch to iframe
