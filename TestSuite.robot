@@ -15,7 +15,7 @@ Test Teardown     Disconnect Webdriver
 *** Test Cases ***
 TC1 Behaviour Driven Scenario With Two Filters
 	[Tags]    skip
-	Given Connected To Website With Search Mocking For    TC1
+	Given Connected To Website With Search Mocking For    TC1    Firefox
 	When The User Scrolls To Search
 	And Inputs The Word(s)    Machine
 	And Selects Seniority Senior
@@ -24,25 +24,30 @@ TC1 Behaviour Driven Scenario With Two Filters
 
 TC2 Behaviour Driven Performance Test
 	[Tags]    skip
-	Given Connected To Website
+	Given Connected To Website With    Firefox
 	When The User Scrolls To Search
 	And Inputs The Word(s)    @{WORDS}
 	Then The Time Should Take Maximum 5
 	
 TC3 Verify Location Consistency
 	[Tags]    skip
-    Connect to Website
+    Connect to Website With    Firefox
 	Search Keyword in Joblist    Düsseldorf
 	Verify Result Location    Düsseldorf
 
 TC4 Scenario Job Subscription
-	[Tags]    run
-	Connect to Website
+	[Tags]    skip
+	Connect to Website With    Firesfox
 	Fill Job Subscription With    @{FORM_DATA}
 
 TC5 Scenario Search in Field and Click Links
-    [Tags]    skip
-	Connect to Website With Search Mocking For    TC5
+    [Tags]    run
+	Connect to Website With Search Mocking For    TC5    Firefox
+	Search Keyword in Joblist    Machine
+	Verify Result    @{EXPECTED_JOBS}
+	Click Links
+	Disconnect
+	Connect to Website With Search Mocking For    TC5    Chrome
 	Search Keyword in Joblist    Machine
 	Verify Result    @{EXPECTED_JOBS}
 	Click Links

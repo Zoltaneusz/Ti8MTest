@@ -9,12 +9,13 @@ ${multi_use_var}
 
 *** Keywords ***
 Connect to Website With Search Mocking For
-	[Arguments]    ${Testcasenr}
-    Connect With Interceptor    https://www.ti8m.com/de/career    ${Testcasenr}  
+	[Arguments]    ${Testcasenr}    ${Browser}
+    Connect With Interceptor    https://www.ti8m.com/de/career    ${Testcasenr}    ${Browser}
 	Allow Cookies
 
-Connect to Website
-    Connect    https://www.ti8m.com/de/career
+Connect to Website With
+	[Arguments]    ${Browser}
+    Connect    https://www.ti8m.com/de/career    ${Browser}
 	Allow Cookies	
 	
 Search Keyword in Joblist
@@ -46,12 +47,13 @@ Disconnect
 	Disconnect Webdriver
 	
 	
-Connected to Website
-    Connect    https://www.ti8m.com/de/career
+Connected to Website With
+	[Arguments]    ${Browser}
+    Connect    https://www.ti8m.com/de/career    ${Browser}
 
 Connected to Website With Search Mocking For
-	[Arguments]    ${Testcasenr}
-    Connect With Interceptor    https://www.ti8m.com/de/career    ${Testcasenr}
+	[Arguments]    ${Testcasenr}   ${Browser}
+    Connect With Interceptor    https://www.ti8m.com/de/career    ${Testcasenr}    ${Browser}
 	
 The User Scrolls To Search
     Load and switch to iframe

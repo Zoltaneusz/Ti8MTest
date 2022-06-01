@@ -27,13 +27,20 @@ class Ti8MLibrary:
         self.mock_html_path = ''
         
 # Functions regarding connection-----------------------------
-    def connect(self, url):
-        self.driver = webdriver.Chrome()
+    def connect(self, url, browser):
+        if browser == "Firefox": b = webdriver.Firefox()
+        elif browser == "Chrome": b = webdriver.Chrome()
+        
+        self.driver = b
         self.driver.get(url)
 
-    def connect_with_interceptor(self, url, test_case_nr):
+    def connect_with_interceptor(self, url, test_case_nr, browser):
+        b = None
+        if browser == "Firefox": b = webdriver.Firefox()
+        elif browser == "Chrome": b = webdriver.Chrome()
+        
         self.set_mock_html_path(test_case_nr)
-        self.driver = webdriver.Chrome()
+        self.driver = b
         self.driver.request_interceptor = self.interceptor
         self.driver.get(url)
         
@@ -236,12 +243,16 @@ class Ti8MLibrary:
         time.sleep(5)
  
     def intercept_email_and_validate_result(self):
-    
+    # Chrome network response is not the last element in the "requests" list
+    # Chrome response is also not always at the same index. It varies in the last 4 indexes
+    # Therefore iteration is used. Solution also works for Firefox, where the respons is always at the last index.
+        
         # If e-mail contained "%40" itself, the test would cause false negative.
         self.email = self.email.replace("@", "%40")
         #print(self.email)
         req_string = None
         # request = self.driver.requests[-1]  
+        
         for req in self.driver.requests[len(self.driver.requests)-4:]:
             req_string = req.body.decode()
             if req_string.find("query="+self.stichwort) > -1:
