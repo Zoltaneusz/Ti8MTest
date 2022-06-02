@@ -76,7 +76,12 @@ class Ti8MLibrary:
         b = None
         if browser == "Firefox": b = webdriver.Firefox()
         elif browser == "Chrome": b = webdriver.Chrome()
-        
+        elif browser == "Edge": 
+            options = {
+            'port': 12345
+            }
+            b = webdriver.Edge(seleniumwire_options=options)
+     
         
         self.set_mock_html_path(test_case_nr)
         self.driver = b
@@ -520,7 +525,8 @@ class Ti8MLibrary:
         # request = self.driver.requests[-1]  
 
         
-        for req in self.driver.requests[len(self.driver.requests)-50:]:
+        # for req in self.driver.requests[len(self.driver.requests)-50:]:
+        for req in self.driver.requests:
             # print(req)
             req_string = req.body.decode()
             if req_string.find("query="+self.stichwort) > -1:

@@ -37,7 +37,7 @@ TC3 Verify Location Consistency
 
 TC4 Scenario Job Subscription
 	[Tags]    skip
-	Connect to Website With    Firesfox
+	Connect to Website With    Firefox
 	Fill Job Subscription With    @{FORM_DATA}
 
 TC5 Scenario Search in Field and Click Links
@@ -48,6 +48,11 @@ TC5 Scenario Search in Field and Click Links
 	Click Links
 	Disconnect
 	Connect to Website With Search Mocking For    TC5    Chrome
+	Search Keyword in Joblist    Machine
+	Verify Result    @{EXPECTED_JOBS}
+	Click Links
+	Disconnect
+	Connect to Website With Search Mocking For    TC5    Edge
 	Search Keyword in Joblist    Machine
 	Verify Result    @{EXPECTED_JOBS}
 	Click Links
