@@ -44,6 +44,11 @@ class Ti8MLibrary:
         """
         if browser == "Firefox": b = webdriver.Firefox()
         elif browser == "Chrome": b = webdriver.Chrome()
+        elif browser == "Edge": 
+            options = {
+            'port': 12345
+            }
+            b = webdriver.Edge(seleniumwire_options=options)
      
         self.driver = b
         self.driver.get(url)
@@ -515,7 +520,7 @@ class Ti8MLibrary:
         # request = self.driver.requests[-1]  
 
         
-        for req in self.driver.requests[len(self.driver.requests)-4:]:
+        for req in self.driver.requests[len(self.driver.requests)-50:]:
             # print(req)
             req_string = req.body.decode()
             if req_string.find("query="+self.stichwort) > -1:
@@ -573,7 +578,7 @@ class Ti8MLibrary:
 
 Ti8m=Ti8MLibrary()
 # Ti8m.connect_with_interceptor('https://www.ti8m.com/de/career', 'TC5')
-Ti8m.connect('https://www.ti8m.com/de/career', "Firefox")
+Ti8m.connect('https://www.ti8m.com/de/career', "Edge")
 Ti8m.load_and_switch_to_iframe()
 # Ti8m.start_timer()
 # Ti8m.search_in_field('Machine')
@@ -590,7 +595,7 @@ Ti8m.load_and_switch_to_iframe()
 Ti8m.send_key_to_button("Jobabo", "Return")
 Ti8m.input_jobabo_form_data(["Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com"])
 Ti8m.fill_jobabo_form_page_1()
-# Ti8m.fill_jobabo_form_page_2()
-# print(Ti8m.intercept_email_and_validate_result())
+Ti8m.fill_jobabo_form_page_2()
+print(Ti8m.intercept_email_and_validate_result())
 
 Ti8m.disconnect_webdriver()
