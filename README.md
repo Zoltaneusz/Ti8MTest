@@ -27,6 +27,8 @@ Install using pip:
 
 `pip install selenium-wire`
 
+For Edge browser following configuration is also needed: https://pypi.org/project/selenium-wire/0.8.0/
+
 ### Installing RobotFramework
 As written here: https://robotframework.org/?tab=1#getting-started
 
