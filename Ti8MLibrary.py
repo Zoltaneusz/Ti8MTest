@@ -27,27 +27,79 @@ class Ti8MLibrary:
         self.mock_html_path = ''
         
 # Functions regarding connection-----------------------------
-    def connect(self, url, browser):
+    def connect(self, url : str, browser : str) -> None:
+        """
+        
+        Parameters
+        ----------
+        url : str
+            URL of the webpage to be tested.
+        browser : str
+            The browser to be used for the tests, e.g. "Firefox"
+
+        Returns
+        -------
+        None.
+
+        """
         if browser == "Firefox": b = webdriver.Firefox()
         elif browser == "Chrome": b = webdriver.Chrome()
-        
+     
         self.driver = b
         self.driver.get(url)
 
-    def connect_with_interceptor(self, url, test_case_nr, browser):
+    def connect_with_interceptor(self, url : str, test_case_nr : str, browser : str) -> None:
+        """
+        Connects webdriver to the chosen website in the chosen browser. 
+        Sets path of the html used for mocking in the job search, depending on the test case.
+
+        Parameters
+        ----------
+        url : str
+            URL of the webpage to be tested..
+        test_case_nr : str
+            Number of the test case calling this function.
+        browser : str
+            The browser to be used for the tests, e.g. "Firefox".
+
+        Returns
+        -------
+        None.
+
+        """
+        
         b = None
         if browser == "Firefox": b = webdriver.Firefox()
         elif browser == "Chrome": b = webdriver.Chrome()
+        
         
         self.set_mock_html_path(test_case_nr)
         self.driver = b
         self.driver.request_interceptor = self.interceptor
         self.driver.get(url)
         
-    def disconnect_webdriver(self):
+    def disconnect_webdriver(self) -> None:
+        """
+        Disconnect webdriver.
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
         self.driver.quit()
         
-    def allow_cookies(self):
+    def allow_cookies(self) -> None:
+        """
+        Allows all cookies.
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
         WebDriverWait(self.driver, 20).until(
             EC.element_to_be_clickable(
                 (By.CLASS_NAME, "cc-allow"))).click()
@@ -55,7 +107,15 @@ class Ti8MLibrary:
     
 # Functions job search-----------------------------   
     
-    def load_and_switch_to_iframe(self):
+    def load_and_switch_to_iframe(self) -> None:
+        """
+        Scrolls to iframe that contains the job list.
+
+        Returns
+        -------
+        None.
+
+        """
       #Function navigates to search field 
       
         self.search_iframe = self.driver.find_element(By.CLASS_NAME, "ti8m-iframe")
@@ -70,7 +130,20 @@ class Ti8MLibrary:
           
 
     
-    def search_in_field(self, keyword):
+    def search_in_field(self, keyword : str) -> None:
+        """
+        Search for keyword in job list.
+
+        Parameters
+        ----------
+        keyword : str
+            Word to search for.
+
+        Returns
+        -------
+        None.
+
+        """
         search = WebDriverWait(self.driver, 15).until(
             EC.presence_of_element_located((By.NAME, "query")))
         #search = self.driver.find_element(By.NAME, "query")
@@ -78,7 +151,20 @@ class Ti8MLibrary:
         #search.send_keys(Keys.RETURN)
         time.sleep(1)
         
-    def search_in_seniority(self, seniority):
+    def search_in_seniority(self, seniority : str) -> None:
+        """
+        Checks the checkbox chosen by seniority for the joblist search.
+
+        Parameters
+        ----------
+        seniority : str
+            E.g. "Juniur", "Professional", "Senior"
+
+        Returns
+        -------
+        None.
+
+        """
         # script = "return window.getComputedStyle(document.querySelector('div>input.1301739'),':before').getPropertyValue('text')"
         # self.driver.execute_script(script).strip()
         
@@ -90,7 +176,15 @@ class Ti8MLibrary:
         time.sleep(1)
     
     
-    def list_job_results(self):
+    def list_job_results(self) -> None:
+        """
+        Waits for joblist to be active and saves the webelement.
+
+        Returns
+        -------
+        None.
+
+        """
         try:
             self.job_list = WebDriverWait(self.driver, 15).until(
                 EC.presence_of_element_located((By.ID, "jobs"))
@@ -103,7 +197,8 @@ class Ti8MLibrary:
             print("Fail")
             self.driver.quit()
     
-    def list_job_results_with_timeout(self, timeout):
+    def list_job_results_with_timeout(self, timeout : int):
+        
         try:
             self.job_list = WebDriverWait(self.driver, timeout).until(
                 EC.presence_of_element_located((By.ID, "jobs"))
@@ -118,22 +213,67 @@ class Ti8MLibrary:
             print("Search timed out.")
             self.driver.quit()
     
-    def get_list_of_job_results(self):
+    def get_list_of_job_results(self) -> list:
+        """
+        Reads the saved webelement containing the job results and returns their titles in a list.
+        Returns
+        -------
+        list(str)
+            List of titles of found job results.
+
+        """
         job_result_texts= []
         for job in self.job_results:
             # print(job.text)
             job_result_texts.append(job.text)
         return job_result_texts
     
-    def get_job_result_text(self, ind):
+    def get_job_result_text(self, ind : int) -> str:
+        """
+        Get the title of saved job result at index ind.
+
+        Parameters
+        ----------
+        ind : int
+            Index of job result in the list of job results.
+
+        Returns
+        -------
+        str
+            Title of saved job result.
+
+        """
         return self.job_results[int(ind)].text
     
-    def get_size_of_job_results(self):
+    def get_size_of_job_results(self) -> int:
+        """
+        Get number of job results.
+
+        Returns
+        -------
+        int
+            Nr. of job results.
+
+        """
         #return sum(1 for _ in self.job_results)
         #return len(list(self.job_results_iter))
         return str(len(self.job_results))
     
-    def click_link_of_job_result(self, link):
+    def click_link_of_job_result(self, link : str) -> None:
+        """
+        Click on the job result with title 'link'.
+
+        Parameters
+        ----------
+        link : str
+            Title of job result to be clicked.
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
         #self.driver.switch_to.window(self.first_tab)
         #time.sleep(5)
         job_link = self.job_list.find_element(By.LINK_TEXT, link)
@@ -144,7 +284,18 @@ class Ti8MLibrary:
         
         time.sleep(2)
     
-    def get_job_result_location(self):
+    def get_job_result_location(self) -> str:
+        """
+        Returns the 'location' of the found job result.
+        Works only the there is only one found job!!
+        TODO: extend functionality for more than one jobs.
+
+        Returns
+        -------
+        str
+            Location of job result.
+
+        """
         found_location = self.job_list.find_element(By.CLASS_NAME, "location")
         return found_location.text
     
@@ -152,23 +303,68 @@ class Ti8MLibrary:
 
 #Functions for Timer Functionality---------------
 
-    def start_timer(self):
+    def start_timer(self) -> None:
+        """
+        Saves current time to variable.
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
         self.elapsed_time = time.perf_counter()
         
-    def stop_timer(self):
+    def stop_timer(self) -> None:
+        """
+        Saves time elapsed since calling "start_timer" to variabe.
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
         self.elapsed_time = time.perf_counter()-self.elapsed_time
         
-    def get_timer(self):
+    def get_timer(self) -> int:
+        """
+        Returns time measured between "start_timer" and "stop_timer"
+
+        Returns
+        -------
+        int
+            Time measured between "start_timer" and "stop_timer"
+
+        """
         return self.elapsed_time
     
     
 #Functions for Finding Webelement---------------   
     
-    def send_key_to_button(self,search_param, btn, key):
-        if search_param == "ID":
-            by = By.ID
-        elif search_param == "Class":
-            by = By.CLASS_NAME
+    def send_key_to_button(self,btn_name : str, key : str) -> None:
+        """
+        Find webelement 'btn_name' and click on it. Click is realized either with pressing Return or Space.
+
+        Parameters
+        ----------
+        search_param : str
+            Search mode for webelement. E.g 'ID' or 'Class'.
+        btn : str
+            E.g "Jobabo", "Terms Checkbox".
+        key : str
+            Key to press to realize click action. E.g "Return" or "Space".
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
+        # if search_param == "ID":
+        #     by = By.ID
+        # elif search_param == "Class":
+        #     by = By.CLASS_NAME
             
         if key == "Return":
             pressed_key = Keys.RETURN
@@ -176,21 +372,55 @@ class Ti8MLibrary:
             pressed_key = Keys.SPACE
          
         button = self.job_list = WebDriverWait(self.driver, 5).until(
-            EC.presence_of_element_located((by, self.web_element_ID_finder(btn))
+            EC.presence_of_element_located((self.web_element_finder(btn_name))
             ))
         button.send_keys(pressed_key)
         time.sleep(3)
 
-    def web_element_ID_finder(self, input_elem):
+    def web_element_finder(self, input_elem : str) -> tuple:
+        """
+        Return webelement class or ID, depending on 'input_elem'.
+        'input_elem' is the webelement to look for. E.g. 'ID' or 'Class'.
+
+        Parameters
+        ----------
+        input_elem : str
+            DESCRIPTION.
+
+        Returns
+        -------
+        str
+            DESCRIPTION.
+
+        """
         if input_elem == "Jobabo":
-            return "jobabo-subscribe-button"
+            return (By.CLASS_NAME, "jobabo-subscribe-button")
         elif input_elem == "Terms Checkbox":
-            return "single-opt-in"
+            return (By.ID, "single-opt-in")
         else: return "NaN"
 
 #Functions for Jobabo Test---------------
 
-    def input_jobabo_form_data(self, args):
+    def input_jobabo_form_data(self, args : list) -> None:
+        """
+        
+
+        Parameters
+        ----------
+        args : list <str>
+            args[0] : word to look for.
+            args[1] : location to look for.
+            args[2] : area to look for.
+            args[3] : seniority level to look for.
+            args[4] : title of e-mail.
+            args[5] : e-mail address of recipient.
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
         
         self.stichwort = args[0]
         self.standort = args[1]
@@ -200,7 +430,17 @@ class Ti8MLibrary:
         self.email = args[5]
 
     
-    def fill_jobabo_form_page_1(self):
+    def fill_jobabo_form_page_1(self) -> None:
+        """
+        Fills the first page of the jobabo form with the values defined
+        in function 'input_jobabo_form_data'
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
                 
         last_window = self.driver.window_handles[-1]
         self.driver.switch_to.window(last_window)       
@@ -213,12 +453,22 @@ class Ti8MLibrary:
         
         #Suche nach Chckboxen
         #TODO...fill other checkboxes
-        self.send_key_to_button("ID", "Terms Checkbox", "Space")
+        self.send_key_to_button("Terms Checkbox", "Space")
         
         #Click button to reach next page
-        self.send_key_to_button("Class", "Jobabo", "Return")
+        self.send_key_to_button("Jobabo", "Return")
 
-    def fill_jobabo_form_page_2(self):
+    def fill_jobabo_form_page_2(self) -> None:
+        """
+        Fills the second page of the jobabo form with the values defined
+        in function 'input_jobabo_form_data'
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
         
         # Fill Bezeichnung
         input_bezeichnung = WebDriverWait(self.driver, 5).until(
@@ -242,7 +492,18 @@ class Ti8MLibrary:
         button.submit()
         time.sleep(5)
  
-    def intercept_email_and_validate_result(self):
+    def intercept_email_and_validate_result(self) -> None:
+        """
+        Intercepts network request sent out after calling function
+        'fill_jobabo_form_page_2' and validates it's contents with the data filled
+        in function 'input_jobabo_form_data'.
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
     # Chrome network response is not the last element in the "requests" list
     # Chrome response is also not always at the same index. It varies in the last 4 indexes
     # Therefore iteration is used. Solution also works for Firefox, where the respons is always at the last index.
@@ -252,8 +513,10 @@ class Ti8MLibrary:
         #print(self.email)
         req_string = None
         # request = self.driver.requests[-1]  
+
         
         for req in self.driver.requests[len(self.driver.requests)-4:]:
+            # print(req)
             req_string = req.body.decode()
             if req_string.find("query="+self.stichwort) > -1:
                 print(req_string)
@@ -262,7 +525,22 @@ class Ti8MLibrary:
                 else: return "False"
          
 # Mock Network Response With Predefined HTML-----------
-    def interceptor(self, request):
+    def interceptor(self, request) -> None:
+        """
+        Intercepts outgoing search request and mocks the answer with
+        defined html. The html is defined with function 'set_mock_html_path'.
+
+        Parameters
+        ----------
+        request : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
         
         f = open(self.mock_html_path, "r", encoding='utf-8')
         interceptor_html_response = f.read()      
@@ -274,30 +552,45 @@ class Ti8MLibrary:
                 headers={'Content-Type': 'text/html'},
                 body=interceptor_html_response)
     
-    def set_mock_html_path(self, test_case_nr):
-       #test_case_nr must be in format "TCX", where X:1,2,...,n
-            self.mock_html_path = test_case_nr + " Network Request Mock.txt"
+    def set_mock_html_path(self, test_case_nr : str) -> None:
+        """
+        Sets the path for the html which is used for mocking network request
+        depending on 'test_case_nr'
 
-# Ti8m=Ti8MLibrary()
-# # Ti8m.connect_with_interceptor('https://www.ti8m.com/de/career', 'TC5')
-# Ti8m.connect('https://www.ti8m.com/de/career')
-# Ti8m.load_and_switch_to_iframe()
-# # Ti8m.start_timer()
-# # Ti8m.search_in_field('Machine')
-# # Ti8m.search_in_seniority("Senior")
-# #time.sleep(5)
-# # Ti8m.list_job_results()
-# # Ti8m.list_job_results_with_timeout(0.5)
-# # print(Ti8m.get_list_of_job_results())
-# # Ti8m.stop_timer()
-# # print(Ti8m.get_size_of_job_results() == 1)
-# # print(Ti8m.get_timer())
-# # Ti8m.click_link_of_job_result("Professional Python Engineer")
-# # print(Ti8m.get_job_result_text(0))
-# Ti8m.send_key_to_button("ID", "Jobabo", "Return")
-# Ti8m.input_jobabo_form_data(["Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com"])
-# Ti8m.fill_jobabo_form_page_1()
+        Parameters
+        ----------
+        test_case_nr : str
+        Test_case_nr must be in format "TCX", where X:1,2,...,n
+            E.g. "TC1", "TC5"
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
+        self.mock_html_path = test_case_nr + " Network Request Mock.txt"
+
+Ti8m=Ti8MLibrary()
+# Ti8m.connect_with_interceptor('https://www.ti8m.com/de/career', 'TC5')
+Ti8m.connect('https://www.ti8m.com/de/career', "Firefox")
+Ti8m.load_and_switch_to_iframe()
+# Ti8m.start_timer()
+# Ti8m.search_in_field('Machine')
+# Ti8m.search_in_seniority("Senior")
+#time.sleep(5)
+# Ti8m.list_job_results()
+# Ti8m.list_job_results_with_timeout(0.5)
+# print(Ti8m.get_list_of_job_results())
+# Ti8m.stop_timer()
+# print(Ti8m.get_size_of_job_results() == 1)
+# print(Ti8m.get_timer())
+# Ti8m.click_link_of_job_result("Professional Python Engineer")
+# print(Ti8m.get_job_result_text(0))
+Ti8m.send_key_to_button("Jobabo", "Return")
+Ti8m.input_jobabo_form_data(["Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com"])
+Ti8m.fill_jobabo_form_page_1()
 # Ti8m.fill_jobabo_form_page_2()
 # print(Ti8m.intercept_email_and_validate_result())
 
-# Ti8m.disconnect_webdriver()
+Ti8m.disconnect_webdriver()
