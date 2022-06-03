@@ -42,14 +42,18 @@ class Ti8MLibrary:
         None.
 
         """
-        if browser.find("Firefox"): b = webdriver.Firefox()
-        elif browser.find("Chrome") : b = webdriver.Chrome()
+        if browser.find("Firefox"): 
+            print("firefox")
+            b = webdriver.Firefox()
+        elif browser.find("Chrome") : 
+            print("chrome")
+            b = webdriver.Chrome()
         elif browser.find("Edge"): 
             options = {
             'port': 12345
             }
             b = webdriver.Edge(seleniumwire_options=options)
-     
+            print("edge")
         self.driver = b
         self.driver.get(url)
 
@@ -74,9 +78,9 @@ class Ti8MLibrary:
         """
         
         b = None
-        if browser == "Firefox": b = webdriver.Firefox()
-        elif browser == "Chrome": b = webdriver.Chrome()
-        elif browser == "Edge": 
+        if browser.find("Firefox"): b = webdriver.Firefox()
+        elif browser.find("Chrome") : b = webdriver.Chrome()
+        elif browser.find("Edge"):
             options = {
             'port': 12345
             }
@@ -224,6 +228,33 @@ class Ti8MLibrary:
         except:  
             print("Search timed out.")
             self.driver.quit()
+    
+    def response_active():
+        
+        def _predicate(driver):
+            response = driver.last_response
+            if driver.last.response:
+                return response
+            else: 
+                return False
+        return _predicate
+    
+    def wait_for_joblist(self) -> None:
+        """
+        Waits until last network request responses have status code 200.
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
+        print(self.driver.last_request)
+        wait = WebDriverWait(self.driver, timeout=15, poll_frequency=0.25, ignored_exceptions=[AttributeError])
+        done = wait.until(lambda x: x.last_request.response)
+        print(done)
+       
+                
     
     def get_list_of_job_results(self) -> list:
         """
@@ -584,26 +615,28 @@ class Ti8MLibrary:
         """
         self.mock_html_path = test_case_nr + " Network Request Mock.txt"
 
-# Ti8m=Ti8MLibrary()
-# # Ti8m.connect_with_interceptor('https://www.ti8m.com/de/career', 'TC5')
-# Ti8m.connect('https://www.ti8m.com/de/career', "Firefox")
-# Ti8m.load_and_switch_to_iframe()
-# # Ti8m.start_timer()
-# Ti8m.search_in_field('Machine')
+Ti8m=Ti8MLibrary()
+# Ti8m.connect_with_interceptor('https://www.ti8m.com/de/career', 'TC5')
+Ti8m.connect('https://www.ti8m.com/de/career', "Firefox")
+Ti8m.load_and_switch_to_iframe()
+Ti8m.start_timer()
+Ti8m.search_in_field('Machine Cloud Data Software')
 # Ti8m.search_in_seniority("Junior")
+Ti8m.wait_for_joblist()
+Ti8m.stop_timer()
 # time.sleep(5)
-# Ti8m.list_job_results()
-# # Ti8m.list_job_results_with_timeout(0.5)
-# print(Ti8m.get_list_of_job_results())
-# # Ti8m.stop_timer()
-# # print(Ti8m.get_size_of_job_results() == 1)
-# # print(Ti8m.get_timer())
-# # Ti8m.click_link_of_job_result("Professional Python Engineer")
-# # print(Ti8m.get_job_result_text(0))
-# # Ti8m.send_key_to_button("Jobabo", "Return")
-# # Ti8m.input_jobabo_form_data(["Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com"])
-# # Ti8m.fill_jobabo_form_page_1()
-# # Ti8m.fill_jobabo_form_page_2()
-# # print(Ti8m.intercept_email_and_validate_result())
+Ti8m.list_job_results()
+# Ti8m.list_job_results_with_timeout(0.5)
+print(Ti8m.get_list_of_job_results())
+print(Ti8m.get_timer())
+print(Ti8m.get_size_of_job_results())
+# print(Ti8m.get_timer())
+# Ti8m.click_link_of_job_result("Professional Python Engineer")
+# print(Ti8m.get_job_result_text(0))
+# Ti8m.send_key_to_button("Jobabo", "Return")
+# Ti8m.input_jobabo_form_data(["Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com"])
+# Ti8m.fill_jobabo_form_page_1()
+# Ti8m.fill_jobabo_form_page_2()
+# print(Ti8m.intercept_email_and_validate_result())
 
-# Ti8m.disconnect_webdriver()
+Ti8m.disconnect_webdriver()
