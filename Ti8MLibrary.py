@@ -16,8 +16,8 @@ class Ti8MLibrary:
         self.first_tab = ''
         self.search_iframe = None
         self.elapsed_time = 0
-        self.seniority_array = [["Junior", "Professional", "Senior"],
-                                ["1301737", "1301738", "1301739"]]
+        self.seniority_array = [["Junior", "Professional", "Senior", "Default"],
+                                ["1301737", "1301738", "1301739", ""]]
         self.stichwort = None
         self.standort = None
         self.bereich = None
@@ -42,9 +42,9 @@ class Ti8MLibrary:
         None.
 
         """
-        if browser == "Firefox": b = webdriver.Firefox()
-        elif browser == "Chrome": b = webdriver.Chrome()
-        elif browser == "Edge": 
+        if browser.find("Firefox"): b = webdriver.Firefox()
+        elif browser.find("Chrome") : b = webdriver.Chrome()
+        elif browser.find("Edge"): 
             options = {
             'port': 12345
             }
@@ -168,7 +168,7 @@ class Ti8MLibrary:
         Parameters
         ----------
         seniority : str
-            E.g. "Juniur", "Professional", "Senior"
+            E.g. "Junior", "Professional", "Senior"
 
         Returns
         -------
@@ -179,8 +179,10 @@ class Ti8MLibrary:
         # self.driver.execute_script(script).strip()
         
         index = self.seniority_array[0].index(seniority)
+        # print(self.seniority_array[1][index])
         check = WebDriverWait(self.driver, 15).until(
             EC.presence_of_element_located((By.ID, self.seniority_array[1][index])))
+            # EC.presence_of_element_located((By.ID, "1301737")))
         #check = self.driver.find_element(By.ID, self.seniority_array[1][index])
         check.send_keys(Keys.SPACE)
         time.sleep(1)
@@ -411,7 +413,7 @@ class Ti8MLibrary:
 
 #Functions for Jobabo Test---------------
 
-    def input_jobabo_form_data(self, args : list) -> None:
+    def input_jobabo_form_data(self, args) -> None:
         """
         
 
@@ -582,26 +584,26 @@ class Ti8MLibrary:
         """
         self.mock_html_path = test_case_nr + " Network Request Mock.txt"
 
-Ti8m=Ti8MLibrary()
-# Ti8m.connect_with_interceptor('https://www.ti8m.com/de/career', 'TC5')
-Ti8m.connect('https://www.ti8m.com/de/career', "Edge")
-Ti8m.load_and_switch_to_iframe()
-# Ti8m.start_timer()
+# Ti8m=Ti8MLibrary()
+# # Ti8m.connect_with_interceptor('https://www.ti8m.com/de/career', 'TC5')
+# Ti8m.connect('https://www.ti8m.com/de/career', "Firefox")
+# Ti8m.load_and_switch_to_iframe()
+# # Ti8m.start_timer()
 # Ti8m.search_in_field('Machine')
-# Ti8m.search_in_seniority("Senior")
-#time.sleep(5)
+# Ti8m.search_in_seniority("Junior")
+# time.sleep(5)
 # Ti8m.list_job_results()
-# Ti8m.list_job_results_with_timeout(0.5)
+# # Ti8m.list_job_results_with_timeout(0.5)
 # print(Ti8m.get_list_of_job_results())
-# Ti8m.stop_timer()
-# print(Ti8m.get_size_of_job_results() == 1)
-# print(Ti8m.get_timer())
-# Ti8m.click_link_of_job_result("Professional Python Engineer")
-# print(Ti8m.get_job_result_text(0))
-Ti8m.send_key_to_button("Jobabo", "Return")
-Ti8m.input_jobabo_form_data(["Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com"])
-Ti8m.fill_jobabo_form_page_1()
-Ti8m.fill_jobabo_form_page_2()
-print(Ti8m.intercept_email_and_validate_result())
+# # Ti8m.stop_timer()
+# # print(Ti8m.get_size_of_job_results() == 1)
+# # print(Ti8m.get_timer())
+# # Ti8m.click_link_of_job_result("Professional Python Engineer")
+# # print(Ti8m.get_job_result_text(0))
+# # Ti8m.send_key_to_button("Jobabo", "Return")
+# # Ti8m.input_jobabo_form_data(["Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com"])
+# # Ti8m.fill_jobabo_form_page_1()
+# # Ti8m.fill_jobabo_form_page_2()
+# # print(Ti8m.intercept_email_and_validate_result())
 
-Ti8m.disconnect_webdriver()
+# Ti8m.disconnect_webdriver()

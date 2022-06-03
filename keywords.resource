@@ -34,7 +34,7 @@ Verify Result
 Verify Result Location
     [Arguments]    ${expected_location}
 	List Job Results
-	Sleep 10s
+	Sleep    10s
 	${found_location}    Get Job Result Location
 	Should Be Equal    ${found_location}    ${expected_location}
 
@@ -62,19 +62,23 @@ Inputs The Word(s)
     [Arguments]    @{WORDS}
     Search in field    @{WORDS}	
 
-Selects Seniority ${seniority}
+Selects Seniority
+	[Arguments]    ${seniority}
 	Search in seniority    ${seniority}
 	
-The Job Result Should Be ${expected_job}
+The Job Result Should Be
+    [Arguments]    ${expected_job}
     List Job Results
     ${found_job}=   Get Job Result Text    0
     Should Be Equal    ${found_job}    ${expected_job}
 
 	
-The Expected Job Number Is ${expected_number}
+The Expected Job Number Is 
+    [Arguments]    ${expected_number}
 	${multi_use_var}=   ${expected_number}
 
-The Time Should Take Maximum ${maximum_time}
+The Time Should Take Maximum
+    [Arguments]    ${maximum_time}
     Start Timer
 	List Job Results
     ${found_number}=   Get Size Of Job Results
@@ -86,7 +90,7 @@ The Time Should Take Maximum ${maximum_time}
 Fill Job Subscription With
     [Arguments]    @{FORM_DATA}
 	Load And Switch To Iframe
-	Send Key To Button    ID    Jobabo    Return
+	Send Key To Button    Jobabo    Return
 	Input Jobabo Form Data    @{FORM_DATA}
 	Fill Jobabo Form Page 1
 	Fill Jobabo Form Page 2
