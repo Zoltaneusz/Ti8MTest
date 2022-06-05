@@ -376,11 +376,47 @@ class Ti8MLibrary:
         #time.sleep(5)
         job_link = self.job_list.find_element(By.LINK_TEXT, link)
         job_link.click()
-        time.sleep(2)
+        # TODO: Time.sleep must be changed to waiting until website is loaded.
+        #time.sleep(2)
+        
+    
+    def switch_back_to_careersite(self) -> None:
+        """
+        Switches back to the tab containing the career site.
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        """
         self.driver.switch_to.window(self.first_tab)
         self.driver.switch_to.frame(self.search_iframe)
-        
-        time.sleep(2)
+        #time.sleep(2)
+    
+    def get_tab_title(self) -> str:
+        """
+        Gets the title of the tab in focus.
+
+        Parameters
+        ----------
+        tab_title : str
+            Title to check.
+
+        Returns
+        -------
+        str
+            Real tab title.
+
+        """
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        tab_title = WebDriverWait(self.driver, 8).until(
+            EC.presence_of_element_located((By.XPATH, "//div[@class='intro']//h1[1]"))
+            
+             )
+        # print(tab_title)
+        # print(tab_title.text)
+        return(tab_title.text)
     
     def get_job_result_location(self) -> str:
         """
@@ -670,29 +706,47 @@ class Ti8MLibrary:
         """
         self.mock_html_path = test_case_nr + " Network Request Mock.txt"
 
-# Ti8m=Ti8MLibrary()
-# # Ti8m.connect_with_interceptor('https://www.ti8m.com/de/career', 'TC5')
-# Ti8m.connect('https://www.ti8m.com/de/career', 'Edge')
-# Ti8m.load_and_switch_to_iframe()
+Ti8m=Ti8MLibrary()
+Ti8m.connect_with_interceptor("https://www.ti8m.com/de/career", "TC5", "Firefox")
+# Ti8m.connect('https://www.ti8m.com/de/career', 'Firefox')
+Ti8m.load_and_switch_to_iframe()
 # Ti8m.start_timer()
-# Ti8m.search_in_field("Machine Cloud")
+Ti8m.search_in_field("Machine")
 # # Ti8m.search_in_seniority("Junior")
 # # time.sleep(10)
 # Ti8m.wait_for_joblist()
 # Ti8m.stop_timer()
 # print(Ti8m.get_timer())
 # # time.sleep(5)
-# Ti8m.list_job_results()
+Ti8m.list_job_results()
+print(Ti8m.get_job_result_text(0).find("Software Engineer mit Flair für Machine Learning") > -1)
+print(Ti8m.get_job_result_text(1).find("Data Architect mit einem Flair für AI") > -1)
+print(Ti8m.get_job_result_text(2).find("Cloud Data Architect mit Flair für AI") > -1)
+
+
 # # Ti8m.list_job_results_with_timeout(0.5)
 # print(Ti8m.get_list_of_job_results())
 
 # print(Ti8m.get_size_of_job_results())
 # # print(Ti8m.get_timer())
-# # Ti8m.click_link_of_job_result("Professional Python Engineer")
+Ti8m.click_link_of_job_result("Software Engineer mit Flair für Machine Learning")
+print(Ti8m.get_tab_title())
+Ti8m.switch_back_to_careersite()
+
+Ti8m.click_link_of_job_result("Data Architect mit einem Flair für AI")
+print(Ti8m.get_tab_title())
+Ti8m.switch_back_to_careersite()
+
+
+Ti8m.click_link_of_job_result("Cloud Data Architect mit Flair für AI")
+print(Ti8m.get_tab_title())
+Ti8m.switch_back_to_careersite()
+
+
 # # print(Ti8m.get_job_result_text(0))
 # # Ti8m.send_key_to_button("Jobabo", "Return")
 # # Ti8m.input_jobabo_form_data(["Python", "Zürich", "Engineering", "Senior", "Header", "fzoltan88@gmail.com"])
 # # Ti8m.fill_jobabo_form_page_1()
 # # Ti8m.fill_jobabo_form_page_2()
 # # print(Ti8m.intercept_email_and_validate_result())
-# Ti8m.disconnect_webdriver()
+Ti8m.disconnect_webdriver()
