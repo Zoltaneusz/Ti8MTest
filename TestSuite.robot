@@ -10,11 +10,11 @@ Test Teardown     Disconnect Webdriver
 *** Variables ***
 @{EXPECTED_JOBS}    Software Engineer mit Flair für Machine Learning    Data Architect mit einem Flair für AI    Cloud Data Architect mit Flair für AI
 @{FORM_DATA}    Python Zürich Engineering Senior Header fzoltan88@gmail.com
-@{WORDS}    Machine Test Engineering Python
+@{WORDS}    Machine Cloud
 
 *** Test Cases ***
 TC1 Behaviour Driven Scenario With Two Filters
-	[Tags]    run
+	[Tags]    skip
 	Given Connected To Website With Search Mocking For    TC1    Firefox
 	When The User Scrolls To Search
 	And Inputs The Word(s)    Machine
@@ -27,7 +27,7 @@ TC2 Behaviour Driven Performance Test
 	Given Connected To Website With    Firefox
 	When The User Scrolls To Search
 	And Inputs The Word(s)    @{WORDS}
-	Then The Time Should Take Maximum 5
+	Then The Time Should Take Maximum    10
 	
 TC3 Verify Location Consistency
 	[Tags]    skip
@@ -41,7 +41,7 @@ TC4 Scenario Job Subscription
 	Fill Job Subscription With    @{FORM_DATA}
 
 TC5 Scenario Search in Field and Click Links
-    [Tags]    skip
+    [Tags]    run
 	Connect to Website With Search Mocking For    TC5    Firefox
 	Search Keyword in Joblist    Machine
 	Verify Result    @{EXPECTED_JOBS}
