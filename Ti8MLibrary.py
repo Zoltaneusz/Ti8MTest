@@ -25,6 +25,7 @@ class Ti8MLibrary:
         self.bezeichnung = None
         self.email = None
         self.mock_html_path = ''
+        self.search_length = 1
         
 # Functions regarding connection-----------------------------
     def connect(self, url : str, browser : str) -> None:
@@ -42,18 +43,13 @@ class Ti8MLibrary:
         None.
 
         """
-        if browser.find("Firefox"): 
-            print("firefox")
-            b = webdriver.Firefox()
-        elif browser.find("Chrome") : 
-            print("chrome")
-            b = webdriver.Chrome()
-        elif browser.find("Edge"): 
+        if browser.find("Firefox") > -1: b = webdriver.Firefox()
+        elif browser.find("Chrome") > -1: b = webdriver.Chrome()
+        elif browser.find("Edge") > -1: 
             options = {
             'port': 12345
             }
             b = webdriver.Edge(seleniumwire_options=options)
-            print("edge")
         self.driver = b
         self.driver.get(url)
 
@@ -141,7 +137,7 @@ class Ti8MLibrary:
         time.sleep(4)
         self.first_tab = self.driver.current_window_handle
         self.driver.switch_to.frame(self.search_iframe)
-          
+        # print(self.driver.current_window_handle)
 
     
     def search_in_field(self, keyword : str) -> None:
@@ -162,6 +158,9 @@ class Ti8MLibrary:
             EC.presence_of_element_located((By.NAME, "query")))
         #search = self.driver.find_element(By.NAME, "query")
         search.send_keys(keyword)
+        self.search_length = len(keyword)
+        # self.search_request = self.driver.wait_for_request('/?lang=de')
+        # print(self.search_request.url)
         #search.send_keys(Keys.RETURN)
         time.sleep(1)
         
@@ -201,13 +200,15 @@ class Ti8MLibrary:
         None.
 
         """
+        # print(self.driver.current_window_handle)
         try:
             self.job_list = WebDriverWait(self.driver, 15).until(
                 EC.presence_of_element_located((By.ID, "jobs"))
                 )
           
             self.job_results = self.job_list.find_elements(By.TAG_NAME, "a")
-
+            
+            # print(len(self.job_list))
 
         except:  
             print("Fail")
@@ -229,29 +230,82 @@ class Ti8MLibrary:
             print("Search timed out.")
             self.driver.quit()
     
-    def response_active():
+    # def response_active():
         
-        def _predicate(driver):
-            response = driver.last_response
-            if driver.last.response:
-                return response
-            else: 
-                return False
-        return _predicate
+    #     def _predicate(driver):
+    #         response = driver.last_response
+    #         if driver.last.response:
+    #             return response
+    #         else: 
+    #             return False
+    #     return _predicate
+    
+    def find_last_search_request_index(self, driver) -> None:
+        """
+        Searches the last network request responses have status 200 or 204.
+        The amount of searched requests is equal to the number of letters in the search
+        or 1 if checkbox search has been initiated by the user. 
+        The reason for this is that the search is triggered after every letter in the search field.
+        
+        Parameters
+        ----------
+        driver : Webdriver
+            Webdriver instance to iterate through.
+
+        Returns
+        -------
+        bool
+            True if all searched network responses have either status 200 or 204.
+
+        """
+        # last_req = None
+        # i=0
+        # ind = 0
+        # for req in driver.requests[len(driver.requests)-4:]:
+        #     i=i+1
+        #     print(req.host)
+        #     if req.host.find("ti8m"):
+        #         last_req = req
+        #         ind = i
+
+        # print(ind)
+        # # print(last_req.host)
+        # return (len(driver.requests)-4+ind)
+        all_responses_arrived = True
+        # There are at least as many requests as letters in the search field
+        for req in driver.requests[len(driver.requests)-self.search_length:]:
+            if req.response.status_code != 200 and req.response.status_code != 204:
+                all_responses_arrived = False
+                print(req.response.status_code)
+             
+        return all_responses_arrived
+        
     
     def wait_for_joblist(self) -> None:
         """
-        Waits until last network request responses have status code 200.
-
+        Waits until last 10 network requests responses have status code 200.
+        Only requests on the ti8m domain are checked for status code.
         Returns
         -------
         None
             DESCRIPTION.
 
         """
-        print(self.driver.last_request)
-        wait = WebDriverWait(self.driver, timeout=15, poll_frequency=0.25, ignored_exceptions=[AttributeError])
-        done = wait.until(lambda x: x.last_request.response)
+      
+        # If google analytics is the last response and faster than the search resp., it is not working
+        wait = WebDriverWait(self.driver, timeout=40, poll_frequency=2, ignored_exceptions=[AttributeError])
+        # done = wait.until(lambda x: x.last_request.response.status_code == 200)
+        # done = wait.until(lambda x: self.find_last_search_request_index(x) and
+        #                   x.last_request.response.status_code == 200) 
+        # done = wait.until(lambda x: x.requests[self.find_last_search_request_index(x)].response.status_code == 200) 
+        # done = wait.until(lambda x: self.search_request.response.status_code == 200)
+        done = wait.until(lambda x: self.find_last_search_request_index(x)) 
+        
+        # done = wait.until(lambda x : last_req.response.status_code == 200)
+                        
+            
+        
+        print("Status: ")
         print(done)
        
                 
@@ -265,6 +319,7 @@ class Ti8MLibrary:
             List of titles of found job results.
 
         """
+
         job_result_texts= []
         for job in self.job_results:
             # print(job.text)
@@ -617,18 +672,20 @@ class Ti8MLibrary:
 
 Ti8m=Ti8MLibrary()
 # Ti8m.connect_with_interceptor('https://www.ti8m.com/de/career', 'TC5')
-Ti8m.connect('https://www.ti8m.com/de/career', "Firefox")
+Ti8m.connect('https://www.ti8m.com/de/career', 'Edge')
 Ti8m.load_and_switch_to_iframe()
 Ti8m.start_timer()
-Ti8m.search_in_field('Machine Cloud Data Software')
+Ti8m.search_in_field("Machine Cloud")
 # Ti8m.search_in_seniority("Junior")
+# time.sleep(10)
 Ti8m.wait_for_joblist()
 Ti8m.stop_timer()
+print(Ti8m.get_timer())
 # time.sleep(5)
 Ti8m.list_job_results()
 # Ti8m.list_job_results_with_timeout(0.5)
 print(Ti8m.get_list_of_job_results())
-print(Ti8m.get_timer())
+
 print(Ti8m.get_size_of_job_results())
 # print(Ti8m.get_timer())
 # Ti8m.click_link_of_job_result("Professional Python Engineer")
@@ -638,5 +695,4 @@ print(Ti8m.get_size_of_job_results())
 # Ti8m.fill_jobabo_form_page_1()
 # Ti8m.fill_jobabo_form_page_2()
 # print(Ti8m.intercept_email_and_validate_result())
-
 Ti8m.disconnect_webdriver()
