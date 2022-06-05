@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from seleniumwire import webdriver
+import warnings
 
 class Ti8MLibrary:
 
@@ -334,7 +335,10 @@ class Ti8MLibrary:
         job_result_texts= []
         for job in self.job_results:
             # print(job.text)
-            job_result_texts.append(job.text)
+            try: 
+                job_result_texts.append(job.text)
+            except:
+                warnings.warn('Job list not existing.')
         return job_result_texts
     
     def get_job_result_text(self, ind : int) -> str:
@@ -385,8 +389,11 @@ class Ti8MLibrary:
         """
         #self.driver.switch_to.window(self.first_tab)
         #time.sleep(5)
-        job_link = self.job_list.find_element(By.LINK_TEXT, link)
-        job_link.click()
+        try:
+            job_link = self.job_list.find_element(By.LINK_TEXT, link)
+            job_link.click()
+        except Exception as e:
+            raise e('Clicking on link failed.')
         # TODO: Time.sleep must be changed to waiting until website is loaded.
         # time.sleep(2)
         
@@ -424,15 +431,22 @@ class Ti8MLibrary:
             Real tab title.
 
         """
-        if self.browser.find("Firefox") >-1:
-            self.driver.switch_to.window(self.driver.window_handles[1])
-        elif self.browser.find("Chrome") >-1 or self.browser.find("Edge") >-1:
-            self.driver.switch_to.window(self.driver.window_handles[-1])
+        try:
+            if self.browser.find("Firefox") >-1:
+                self.driver.switch_to.window(self.driver.window_handles[1])
+            elif self.browser.find("Chrome") >-1 or self.browser.find("Edge") >-1:
+                self.driver.switch_to.window(self.driver.window_handles[-1])
+                
+            tab_title = WebDriverWait(self.driver, 8).until(
+                EC.presence_of_element_located((By.XPATH, "//div[@class='intro']//h1[1]"))
+                
+                 )
+        except Exception as e:
+            if 'NoSuchElement' in str(e):
+                raise e('Title of page was not found.')    
+            else:
+                raise e('Tabs did not open correctly.')    
             
-        tab_title = WebDriverWait(self.driver, 8).until(
-            EC.presence_of_element_located((By.XPATH, "//div[@class='intro']//h1[1]"))
-            
-             )
         # print(tab_title)
         # print(tab_title.text)
         return(tab_title.text)
