@@ -11,7 +11,6 @@ ${multi_use_var}
 Connect to Website With Search Mocking For
 	[Arguments]    ${Testcasenr}    ${Browser}
     Connect With Interceptor    https://www.ti8m.com/de/career    ${Testcasenr}    ${Browser}
-	Allow Cookies
 
 Connect to Website With
 	[Arguments]    ${Browser}
@@ -33,14 +32,17 @@ Verify Result
 	
 Verify Result Location
     [Arguments]    ${expected_location}
+	Wait For Joblist
 	List Job Results
-	Sleep    10s
 	${found_location}    Get Job Result Location
 	Should Be Equal    ${found_location}    ${expected_location}
 
 Click Links
 	FOR   ${Link}    IN    @{EXPECTED_JOBS}
 	    Click Link Of Job Result    ${Link}
+		${Title}    Get Last Tab Title
+		Should Be Equal    ${Title}    ${Link}
+		Switch Back To Careersite
     END
 	
 Disconnect
@@ -80,10 +82,9 @@ The Expected Job Number Is
 The Time Should Take Maximum
     [Arguments]    ${maximum_time}
     Start Timer
-	List Job Results
-    ${found_number}=   Get Size Of Job Results
+	Wait For Joblist
 	Stop Timer
-    Should Be Equal    ${found_number}    113
+	List Job Results
 	${elapsed_time}=   Get Timer
 	Should Be True    ${elapsed_time}<${maximum_time}
 

@@ -30,7 +30,7 @@ TC2 Behaviour Driven Performance Test
 	Then The Time Should Take Maximum    10
 	
 TC3 Verify Location Consistency
-	[Tags]    skip
+	[Tags]    run
     Connect to Website With    Firefox
 	Search Keyword in Joblist    Düsseldorf
 	Verify Result Location    Düsseldorf
@@ -41,7 +41,7 @@ TC4 Scenario Job Subscription
 	Fill Job Subscription With    @{FORM_DATA}
 
 TC5 Scenario Search in Field and Click Links
-    [Tags]    run
+    [Tags]    skip
 	Connect to Website With Search Mocking For    TC5    Firefox
 	Search Keyword in Joblist    Machine
 	Verify Result    @{EXPECTED_JOBS}
