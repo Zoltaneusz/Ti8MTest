@@ -39,7 +39,7 @@ The test cases consist of three levels:
 2. Middle level is defined in ***keywords.resource***
 3. Lowest level is the file ***Ti8MTest.py***
 
-Following html files may be used in the test cases to circumvent server waiting times. Test cases 1 and 5 may use these files to intercept network responses and bypassing real server data.
+Following html files may be used in the test cases to circumvent server waiting times. Test cases 1 and 5 may use these files to intercept network responses and to bypass real server data.
 1. TC1 Network Request Mock.txt 
 2. TC5 Network Request Mock.txt
 
@@ -49,6 +49,7 @@ To simply run all the test cases (TC1..TC5) from ***TestSuite.robot*** use follo
 
 `robot TestSuite.robot`  
 
+#### Skipping test cases
 To skip a test case '[Tags]    Skip' may be used as shown for test case 1.
 
     TC1 Behaviour Driven Scenario With Two Filters
