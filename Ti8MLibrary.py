@@ -111,6 +111,7 @@ class Ti8MLibrary:
 
         """
         self.driver.quit()
+        time.sleep(2)
         
     def allow_cookies(self) -> None:
         """
@@ -411,7 +412,7 @@ class Ti8MLibrary:
         
         
         self.driver.switch_to.window(self.first_tab)
-        self.search_iframe = WebDriverWait(self.driver, 8).until(
+        self.search_iframe = WebDriverWait(self.driver, 15).until(
             EC.presence_of_element_located((By.CLASS_NAME, "ti8m-iframe")))
         self.driver.switch_to.frame(self.search_iframe)
         #time.sleep(2)
