@@ -169,7 +169,7 @@ class Ti8MLibrary:
         """
         search = WebDriverWait(self.driver, 15).until(
             EC.presence_of_element_located((By.NAME, "query")))
-        #search = self.driver.find_element(By.NAME, "query")
+
         search.send_keys(keyword)
         self.search_length = len(keyword)
         # self.search_request = self.driver.wait_for_request('/?lang=de')
@@ -191,15 +191,12 @@ class Ti8MLibrary:
         None.
 
         """
-        # script = "return window.getComputedStyle(document.querySelector('div>input.1301739'),':before').getPropertyValue('text')"
-        # self.driver.execute_script(script).strip()
         
         index = self.seniority_array[0].index(seniority)
         # print(self.seniority_array[1][index])
         check = WebDriverWait(self.driver, 15).until(
             EC.presence_of_element_located((By.ID, self.seniority_array[1][index])))
-            # EC.presence_of_element_located((By.ID, "1301737")))
-        #check = self.driver.find_element(By.ID, self.seniority_array[1][index])
+
         check.send_keys(Keys.SPACE)
         time.sleep(1)
     
@@ -243,15 +240,6 @@ class Ti8MLibrary:
             print("Search timed out.")
             self.driver.quit()
     
-    # def response_active():
-        
-    #     def _predicate(driver):
-    #         response = driver.last_response
-    #         if driver.last.response:
-    #             return response
-    #         else: 
-    #             return False
-    #     return _predicate
     
     def find_last_search_request_index(self, driver) -> None:
         """
@@ -271,19 +259,7 @@ class Ti8MLibrary:
             True if all searched network responses have either status 200 or 204.
 
         """
-        # last_req = None
-        # i=0
-        # ind = 0
-        # for req in driver.requests[len(driver.requests)-4:]:
-        #     i=i+1
-        #     print(req.host)
-        #     if req.host.find("ti8m"):
-        #         last_req = req
-        #         ind = i
 
-        # print(ind)
-        # # print(last_req.host)
-        # return (len(driver.requests)-4+ind)
         all_responses_arrived = True
         # There are at least as many requests as letters in the search field
         for req in driver.requests[len(driver.requests)-self.search_length:]:
@@ -305,17 +281,9 @@ class Ti8MLibrary:
 
         """
       
-        # If google analytics is the last response and faster than the search resp., it is not working
-        wait = WebDriverWait(self.driver, timeout=40, poll_frequency=2, ignored_exceptions=[AttributeError])
-        # done = wait.until(lambda x: x.last_request.response.status_code == 200)
-        # done = wait.until(lambda x: self.find_last_search_request_index(x) and
-        #                   x.last_request.response.status_code == 200) 
-        # done = wait.until(lambda x: x.requests[self.find_last_search_request_index(x)].response.status_code == 200) 
-        # done = wait.until(lambda x: self.search_request.response.status_code == 200)
-        done = wait.until(lambda x: self.find_last_search_request_index(x)) 
         
-        # done = wait.until(lambda x : last_req.response.status_code == 200)
-                        
+        wait = WebDriverWait(self.driver, timeout=40, poll_frequency=2, ignored_exceptions=[AttributeError])
+        done = wait.until(lambda x: self.find_last_search_request_index(x))                       
             
         
         print("Status: ")
@@ -369,8 +337,7 @@ class Ti8MLibrary:
             Nr. of job results.
 
         """
-        #return sum(1 for _ in self.job_results)
-        #return len(list(self.job_results_iter))
+
         return str(len(self.job_results))
     
     def click_link_of_job_result(self, link : str) -> None:
@@ -388,16 +355,14 @@ class Ti8MLibrary:
             DESCRIPTION.
 
         """
-        #self.driver.switch_to.window(self.first_tab)
-        #time.sleep(5)
+
+
         try:
             job_link = self.job_list.find_element(By.LINK_TEXT, link)
             job_link.click()
         except Exception as e:
             raise e('Clicking on link failed.')
-        # TODO: Time.sleep must be changed to waiting until website is loaded.
-        # time.sleep(2)
-        
+
     
     def switch_back_to_careersite(self) -> None:
         """
@@ -529,11 +494,7 @@ class Ti8MLibrary:
             DESCRIPTION.
 
         """
-        # if search_param == "ID":
-        #     by = By.ID
-        # elif search_param == "Class":
-        #     by = By.CLASS_NAME
-            
+
         if key == "Return":
             pressed_key = Keys.RETURN
         elif key == "Space":
@@ -652,7 +613,6 @@ class Ti8MLibrary:
         input_email.send_keys(self.email)
         
         #Click button to finish Jobabo
-        #self.send_key_to_button("Class", "jobabo-subscribe-button", "Return")
         button = WebDriverWait(self.driver, 5).until(
             EC.presence_of_element_located((By.CLASS_NAME, "jobabo-subscribe-button")
             ))

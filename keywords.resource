@@ -24,6 +24,7 @@ Search Keyword in Joblist
 	
 Verify Result
     [Arguments]    @{EXPECTED_JOBS}
+	Wait for Joblist
 	List Job Results
 	FOR   ${index}    ${expected_job}    IN ENUMERATE    @{EXPECTED_JOBS}
 	    ${found_job}=   Get Job Result Text    ${index}
